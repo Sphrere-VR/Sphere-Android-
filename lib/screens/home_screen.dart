@@ -39,11 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => GameScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          // Define the transition effect (e.g., a slide transition)
-          const begin =
-              Offset(1.0, 0.0); // Start from the right side of the screen
-          const end = Offset.zero; // End at the center of the screen
-          const curve = Curves.easeInOut; // Smooth animation curve
+          const begin = Offset(1.0, 0.0); // Start from the right side
+          const end = Offset.zero; // End at the center
+          const curve = Curves.easeInOut; // Smooth transition
 
           var tween =
               Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
@@ -90,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
 
-              // Card Container with Border
+              // Card Container
               Container(
                 padding: EdgeInsets.all(20),
                 margin: EdgeInsets.symmetric(horizontal: 20),
@@ -122,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Text(
-                      "Save the Galaxy !",
+                      "Save the Galaxy!",
                       style: TextStyle(
                         fontFamily: 'lucky',
                         fontSize: 30,
@@ -143,48 +141,47 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(height: 20),
 
-                    // Play Button Inside Card with Press Effect
+                    // Play Button with Press Effect
                     GestureDetector(
-                      onTap: () {
+                      onTapDown: (_) => _setPressed(true), // Press animation
+                      onTapUp: (_) {
+                        _setPressed(false);
                         _navigateToGameScreen(
-                            context); // Navigate to Game Screen with custom transition
+                            context); // Navigate after release
                       },
+                      onTapCancel: () =>
+                          _setPressed(false), // Reset if canceled
                       child: AnimatedContainer(
                         duration: Duration(milliseconds: 100),
                         transform: _isPressed
                             ? Matrix4.translationValues(0, 5, 0) // Move down
                             : Matrix4.identity(),
-                        child: InkWell(
-                          onTapDown: (_) => _setPressed(true),
-                          onTapUp: (_) => _setPressed(false),
-                          onTapCancel: () => _setPressed(false),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 40),
-                            decoration: BoxDecoration(
-                              color: Colors.greenAccent,
-                              borderRadius: BorderRadius.circular(30),
-                              border: Border.all(
-                                color: Color.fromARGB(255, 12, 12, 12),
-                                width: 2,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.greenAccent.withOpacity(0.5),
-                                  spreadRadius: 3,
-                                  blurRadius: 10,
-                                  offset: Offset(0, 5),
-                                ),
-                              ],
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 40),
+                          decoration: BoxDecoration(
+                            color: Colors.greenAccent,
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(
+                              color: Color.fromARGB(255, 12, 12, 12),
+                              width: 2,
                             ),
-                            child: Text(
-                              "PLAY NOW",
-                              style: TextStyle(
-                                fontFamily: 'lucky',
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 246, 185, 59),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.greenAccent.withOpacity(0.5),
+                                spreadRadius: 3,
+                                blurRadius: 10,
+                                offset: Offset(0, 5),
                               ),
+                            ],
+                          ),
+                          child: Text(
+                            "PLAY NOW",
+                            style: TextStyle(
+                              fontFamily: 'lucky',
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 246, 185, 59),
                             ),
                           ),
                         ),
@@ -196,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
 
-          // "Made and Designed by EPJ" at Bottom with Grey Opacity Text
+          // "Made and Designed by EPJ" at Bottom
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
