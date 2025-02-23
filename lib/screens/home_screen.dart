@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sphere_app/screens/infor_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => GameScreen(),
+        pageBuilder: (context, animation, secondaryAnimation) => InforScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(1.0, 0.0); // Start from the right side
           const end = Offset.zero; // End at the center
@@ -226,22 +227,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-// New Game Screen
-class GameScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Game Screen")),
-      body: Center(
-        child: Text(
-          "Welcome to the Game!",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
       ),
     );
   }

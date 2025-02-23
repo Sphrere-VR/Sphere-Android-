@@ -9,12 +9,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: InfoPage(),
+      home: InforScreen(),
     );
   }
 }
 
-class InfoPage extends StatelessWidget {
+class InforScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
