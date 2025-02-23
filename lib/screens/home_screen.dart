@@ -10,8 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        textTheme: GoogleFonts
-            .luckiestGuyTextTheme(), // Set the Luckiest Guy font globally
+        textTheme: GoogleFonts.luckiestGuyTextTheme(),
       ),
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
@@ -19,7 +18,43 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool _isPressed = false;
+
+  void _setPressed(bool isPressed) {
+    setState(() {
+      _isPressed = isPressed;
+    });
+  }
+
+  // Custom transition to the Game Screen
+  void _navigateToGameScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => GameScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          // Define the transition effect (e.g., a slide transition)
+          const begin =
+              Offset(1.0, 0.0); // Start from the right side of the screen
+          const end = Offset.zero; // End at the center of the screen
+          const curve = Curves.easeInOut; // Smooth animation curve
+
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var offsetAnimation = animation.drive(tween);
+
+          return SlideTransition(position: offsetAnimation, child: child);
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +67,8 @@ class HomeScreen extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Color.fromARGB(255, 246, 185, 59), // Gold color
-                  Color.fromRGBO(105, 240, 174, 1)
-                      .withOpacity(0.5), // Light green with opacity
+                  Color.fromARGB(255, 246, 185, 59),
+                  Color.fromRGBO(105, 240, 174, 1).withOpacity(0.5),
                 ],
               ),
             ),
@@ -65,7 +99,7 @@ class HomeScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(25),
                   border: Border.all(
                     color: Colors.black,
-                    width: 2, // Border thickness
+                    width: 2,
                   ),
                   boxShadow: [
                     BoxShadow(
@@ -82,8 +116,7 @@ class HomeScreen extends StatelessWidget {
                     Text(
                       "It's time to",
                       style: TextStyle(
-                        fontFamily:
-                            'lucky', // The family name you defined in pubspec.yaml
+                        fontFamily: 'lucky',
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -91,8 +124,7 @@ class HomeScreen extends StatelessWidget {
                     Text(
                       "Save the Galaxy !",
                       style: TextStyle(
-                        fontFamily:
-                            'lucky', // The family name you defined in pubspec.yaml
+                        fontFamily: 'lucky',
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 246, 185, 59),
@@ -103,48 +135,57 @@ class HomeScreen extends StatelessWidget {
                       "Join millions of players worldwide to win a race and compete in Mario Kart races.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontFamily:
-                            'lucky', // The family name you defined in pubspec.yaml
+                        fontFamily: 'lucky',
                         fontSize: 15,
                         color: Colors.black54,
-                        fontStyle: FontStyle.italic,
+                        //fontStyle: FontStyle.italic,
                       ),
                     ),
                     SizedBox(height: 20),
 
-                    // Play Button Inside Card
+                    // Play Button Inside Card with Press Effect
                     GestureDetector(
                       onTap: () {
-                        // Add your navigation action here
+                        _navigateToGameScreen(
+                            context); // Navigate to Game Screen with custom transition
                       },
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-                        decoration: BoxDecoration(
-                          color: Colors.greenAccent,
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(
-                            color:
-                                Color.fromARGB(255, 12, 12, 12), // Border color
-                            width: 2, // Border thickness
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.greenAccent.withOpacity(0.5),
-                              spreadRadius: 3,
-                              blurRadius: 10,
-                              offset: Offset(0, 5),
+                      child: AnimatedContainer(
+                        duration: Duration(milliseconds: 100),
+                        transform: _isPressed
+                            ? Matrix4.translationValues(0, 5, 0) // Move down
+                            : Matrix4.identity(),
+                        child: InkWell(
+                          onTapDown: (_) => _setPressed(true),
+                          onTapUp: (_) => _setPressed(false),
+                          onTapCancel: () => _setPressed(false),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 40),
+                            decoration: BoxDecoration(
+                              color: Colors.greenAccent,
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(
+                                color: Color.fromARGB(255, 12, 12, 12),
+                                width: 2,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.greenAccent.withOpacity(0.5),
+                                  spreadRadius: 3,
+                                  blurRadius: 10,
+                                  offset: Offset(0, 5),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        child: Text(
-                          "PLAY NOW",
-                          style: TextStyle(
-                            fontFamily:
-                                'lucky', // The family name you defined in pubspec.yaml
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 246, 185, 59),
+                            child: Text(
+                              "PLAY NOW",
+                              style: TextStyle(
+                                fontFamily: 'lucky',
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 246, 185, 59),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -154,11 +195,12 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-// "Made and Designed by EPJ" at Bottom with Grey Opacity Text
+
+          // "Made and Designed by EPJ" at Bottom with Grey Opacity Text
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 20), // Adjust bottom spacing
+              padding: EdgeInsets.only(bottom: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -166,7 +208,7 @@ class HomeScreen extends StatelessWidget {
                     "Made and Designed by ",
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.black.withOpacity(0.5), // Grey opacity
+                      color: Colors.black.withOpacity(0.5),
                     ),
                   ),
                   GestureDetector(
@@ -178,8 +220,7 @@ class HomeScreen extends StatelessWidget {
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         fontSize: 12,
-                        color: Colors.blue
-                            .withOpacity(0.5), // Grey opacity for the link
+                        color: Colors.blue.withOpacity(0.5),
                       ),
                     ),
                   ),
@@ -188,6 +229,22 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+// New Game Screen
+class GameScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Game Screen")),
+      body: Center(
+        child: Text(
+          "Welcome to the Game!",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
