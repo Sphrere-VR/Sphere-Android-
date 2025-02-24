@@ -49,193 +49,324 @@ class InforScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Icon(Icons.menu, color: Colors.black),
-        actions: [
-          Icon(Icons.notifications_none, color: Colors.black),
-          SizedBox(width: 16),
-        ],
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              "It's Time to Play",
-              style: TextStyle(
-                fontFamily: 'lucky',
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 16),
-            Container(
-              padding: EdgeInsets.all(12), // Reduced padding
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: Colors.black,
-                  width: 2,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                  ),
+      body: Stack(
+        children: [
+          // Background Gradient
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromARGB(255, 246, 185, 59),
+                  Color.fromRGBO(105, 240, 174, 1).withOpacity(0.5),
                 ],
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            ),
+          ),
+          Center(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        width: 80, // Reduced size
-                        height: 80,
-                        child: Image.asset('assets/images/shoots.png'),
-                      ),
-                      Text(
-                        "Your Shoots",
-                        style: TextStyle(
-                          fontFamily: 'lucky',
-                        ),
-                      ),
-                      Text(
-                        "120",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'lucky',
-                        ),
-                      ),
-                    ],
+                  Text(
+                    "It's Time to Play",
+                    style: TextStyle(
+                      fontFamily: 'lucky',
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                    ),
                   ),
-                  CustomPaint(
-                    size: Size(3, 50), // Width and Height of the separator
-                    painter: CurvedSeparatorPainter(),
+                  SizedBox(height: 16),
+                  Container(
+                    padding: EdgeInsets.all(12), // Reduced padding
+                    decoration: BoxDecoration(
+                      /*
+                      gradient: LinearGradient(
+                        colors: [Colors.blue[100]!, Colors.blue[300]!],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      */
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 2,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          children: [
+                            SizedBox(
+                              width: 80, // Reduced size
+                              height: 80,
+                              child: Image.asset('assets/images/shoots.png'),
+                            ),
+                            Text(
+                              "Shoots",
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 246, 185, 59),
+                                fontFamily: 'lucky',
+                              ),
+                            ),
+                            Text(
+                              "120",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 246, 185, 59),
+                                fontFamily: 'lucky',
+                              ),
+                            ),
+                          ],
+                        ),
+                        CustomPaint(
+                          size:
+                              Size(3, 50), // Width and Height of the separator
+                          painter: CurvedSeparatorPainter(),
+                        ),
+                        Column(
+                          children: [
+                            SizedBox(
+                              width: 80, // Reduced size
+                              height: 80,
+                              child:
+                                  Image.asset('assets/images/EnemyAlien.png'),
+                            ),
+                            Text(
+                              "Escaped",
+                              style: TextStyle(
+                                fontFamily: 'lucky',
+                                color: Color.fromARGB(255, 246, 185, 59),
+                              ),
+                            ),
+                            Text(
+                              "2,301",
+                              style: TextStyle(
+                                fontFamily: 'lucky',
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 246, 185, 59),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  Column(
+                  Image.asset('assets/images/alienAstroids.png',
+                      height: 200), // Reduced height slightly
+                  Text(
+                    "Badges",
+                    style: TextStyle(
+                      fontFamily: 'lucky',
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromARGB(255, 0, 0, 0),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                    child: Text(
+                      "Badges are gotten when you reach a certain level. Win a Nintendo Badge today!",
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontFamily: 'lucky', color: Colors.black54),
+                    ),
+                  ),
+                  SizedBox(height: 20), // Reduced spacing
+                  Text(
+                    "Choose Your Players",
+                    style: TextStyle(
+                      fontFamily: 'lucky',
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                    ),
+                  ),
+                  SizedBox(height: 10), // Reduced spacing
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        width: 80, // Reduced size
-                        height: 80,
-                        child: Image.asset('assets/images/EnemyAlien.png'),
+                      Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Colors.blue[100]!, Colors.blue[300]!],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 2,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                ),
+                              ],
+                            ),
+                            child: Image.asset('assets/images/appolo1.png',
+                                height: 55),
+                          ),
+                          SizedBox(height: 8),
+                          Stack(
+                            children: [
+                              // Border text
+                              Text(
+                                'Apollo',
+                                style: TextStyle(
+                                  fontFamily: 'lucky',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              // Solid text
+                              Text(
+                                'Apollo',
+                                style: TextStyle(
+                                  fontFamily: 'lucky',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      Text(
-                        "Escaped",
-                        style: TextStyle(
-                          fontFamily: 'lucky',
-                        ),
+                      SizedBox(width: 12),
+                      Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Colors.blue[100]!, Colors.blue[300]!],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 2,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                ),
+                              ],
+                            ),
+                            child: Image.asset('assets/images/3TT1.png',
+                                height: 55),
+                          ),
+                          SizedBox(height: 8),
+                          Stack(
+                            children: [
+                              // Border text
+                              Text(
+                                '3TT1',
+                                style: TextStyle(
+                                  fontFamily: 'lucky',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              // Solid text
+                              Text(
+                                '3TT1',
+                                style: TextStyle(
+                                  fontFamily: 'lucky',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      Text(
-                        "2,301",
-                        style: TextStyle(
-                          fontFamily: 'lucky',
-                          fontWeight: FontWeight.bold,
-                        ),
+                      SizedBox(width: 12),
+                      Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Colors.blue[100]!, Colors.blue[300]!],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 2,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                ),
+                              ],
+                            ),
+                            child: Image.asset('assets/images/junkBooster.png',
+                                height: 55),
+                          ),
+                          SizedBox(height: 8),
+                          Stack(
+                            children: [
+                              // Border text
+                              Text(
+                                'Booster',
+                                style: TextStyle(
+                                  fontFamily: 'lucky',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              // Solid text
+                              Text(
+                                'Booster',
+                                style: TextStyle(
+                                  fontFamily: 'lucky',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ],
               ),
             ),
-            Image.asset('assets/images/alienAstroids.png',
-                height: 200), // Reduced height slightly
-            Text(
-              "Badges",
-              style: TextStyle(
-                  fontFamily: 'lucky',
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-              child: Text(
-                "Badges are gotten when you reach a certain level. Win a Nintendo Badge today!",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: 'lucky', color: Colors.black54),
-              ),
-            ),
-            SizedBox(height: 20), // Reduced spacing
-            Text(
-              "Choose Your Players",
-              style: TextStyle(
-                  fontFamily: 'lucky',
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10), // Reduced spacing
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                      ),
-                    ],
-                  ),
-                  child: Image.asset('assets/images/appolo1.png', height: 55),
-                ),
-                SizedBox(width: 12),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                      ),
-                    ],
-                  ),
-                  child: Image.asset('assets/images/3TT1.png', height: 55),
-                ),
-                SizedBox(width: 12),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                      ),
-                    ],
-                  ),
-                  child:
-                      Image.asset('assets/images/junkBooster.png', height: 55),
-                ),
-              ],
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
