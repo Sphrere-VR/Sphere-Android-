@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,6 +9,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        textTheme: GoogleFonts.luckiestGuyTextTheme(),
+      ),
       debugShowCheckedModeBanner: false,
       home: InforScreen(),
     );
@@ -34,7 +38,11 @@ class InforScreen extends StatelessWidget {
           children: [
             Text(
               "It's Time to Play",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontFamily: 'lucky',
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             SizedBox(height: 16),
             Container(
@@ -42,6 +50,10 @@ class InforScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: Colors.black,
+                  width: 2,
+                ),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.2),
@@ -55,31 +67,57 @@ class InforScreen extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      Icon(Icons.emoji_events, color: Colors.orange),
-                      Text("Rank"),
-                      Text("120",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        width: 100, // Increased size
+                        height: 100,
+                        child: Image.asset('assets/images/shoots.png'),
+                      ),
+                      Text(
+                        "Your Shoots",
+                        style: TextStyle(
+                          fontFamily: 'lucky',
+                        ),
+                      ),
+                      Text(
+                        "120",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'lucky',
+                        ),
+                      ),
                     ],
                   ),
                   Container(
-                    height: 40,
-                    width: 1,
+                    height: 60, // Increased separator height
+                    width: 2, // Made the separator thicker
                     color: Colors.grey,
                   ),
                   Column(
                     children: [
-                      Icon(Icons.star, color: Colors.yellow),
-                      Text("Points"),
-                      Text("2,301",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        width: 100, // Increased size
+                        height: 100,
+                        child: Image.asset('assets/images/EnemyAlien.png'),
+                      ),
+                      Text(
+                        "Escaped",
+                        style: TextStyle(
+                          fontFamily: 'lucky',
+                        ),
+                      ),
+                      Text(
+                        "2,301",
+                        style: TextStyle(
+                          fontFamily: 'lucky',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 24),
-            Image.asset('assets/images/toad.png', height: 120),
-            SizedBox(height: 12),
+            Image.asset('assets/images/alienAstroids.png', height: 220),
             Text(
               "Badges",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
