@@ -18,6 +18,33 @@ class MyApp extends StatelessWidget {
   }
 }
 
+//Cals function for the separater in the card between the Enemy and gun
+class CurvedSeparatorPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = Colors.black
+      ..strokeWidth = size.width
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
+    Path path = Path();
+    path.moveTo(size.width / 2, 0);
+
+    // Increased control point offsets for more bending effect
+    path.quadraticBezierTo(
+        size.width * 1.5, size.height / 3, size.width / 2, size.height / 2);
+
+    path.quadraticBezierTo(
+        -size.width * 0.5, 2 * size.height / 3, size.width / 2, size.height);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
 class InforScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -46,7 +73,7 @@ class InforScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Container(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(12), // Reduced padding
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
@@ -68,8 +95,8 @@ class InforScreen extends StatelessWidget {
                   Column(
                     children: [
                       SizedBox(
-                        width: 100, // Increased size
-                        height: 100,
+                        width: 80, // Reduced size
+                        height: 80,
                         child: Image.asset('assets/images/shoots.png'),
                       ),
                       Text(
@@ -87,16 +114,15 @@ class InforScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Container(
-                    height: 60, // Increased separator height
-                    width: 2, // Made the separator thicker
-                    color: Colors.grey,
+                  CustomPaint(
+                    size: Size(3, 50), // Width and Height of the separator
+                    painter: CurvedSeparatorPainter(),
                   ),
                   Column(
                     children: [
                       SizedBox(
-                        width: 100, // Increased size
-                        height: 100,
+                        width: 80, // Reduced size
+                        height: 80,
                         child: Image.asset('assets/images/EnemyAlien.png'),
                       ),
                       Text(
@@ -117,7 +143,8 @@ class InforScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Image.asset('assets/images/alienAstroids.png', height: 220),
+            Image.asset('assets/images/alienAstroids.png',
+                height: 200), // Reduced height slightly
             Text(
               "Badges",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -130,20 +157,21 @@ class InforScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.black54),
               ),
             ),
-            SizedBox(height: 24),
+            SizedBox(height: 20), // Reduced spacing
             Text(
               "Choose Your Players",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 12),
+            SizedBox(height: 10), // Reduced spacing
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/player1.png', height: 60),
-                SizedBox(width: 16),
-                Image.asset('assets/images/player2.png', height: 60),
-                SizedBox(width: 16),
-                Image.asset('assets/images/player3.png', height: 60),
+                Image.asset('assets/images/player1.png',
+                    height: 55), // Slightly smaller
+                SizedBox(width: 12),
+                Image.asset('assets/images/player2.png', height: 55),
+                SizedBox(width: 12),
+                Image.asset('assets/images/player3.png', height: 55),
               ],
             ),
           ],
