@@ -147,20 +147,26 @@ class InforScreen extends StatelessWidget {
                 height: 200), // Reduced height slightly
             Text(
               "Badges",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'lucky',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
               child: Text(
                 "Badges are gotten when you reach a certain level. Win a Nintendo Badge today!",
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black54),
+                style: TextStyle(fontFamily: 'lucky', color: Colors.black54),
               ),
             ),
             SizedBox(height: 20), // Reduced spacing
             Text(
               "Choose Your Players",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'lucky',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10), // Reduced spacing
             Row(
