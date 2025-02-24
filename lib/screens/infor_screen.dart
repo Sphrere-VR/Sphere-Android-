@@ -64,6 +64,16 @@ class InforScreen extends StatelessWidget {
               ),
             ),
           ),
+          Positioned(
+            top: 40, // Adjusted top position to drop the icon lower
+            left: 16,
+            child: IconButton(
+              icon: Icon(Icons.menu, color: Colors.white),
+              onPressed: () {
+                // Add your menu action here
+              },
+            ),
+          ),
           Center(
             child: Padding(
               padding: EdgeInsets.all(16.0),
