@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:async';
 
 void main() {
   runApp(MyApp());
@@ -45,7 +46,42 @@ class CurvedSeparatorPainter extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
-class InforScreen extends StatelessWidget {
+class InforScreen extends StatefulWidget {
+  @override
+  _InforScreenState createState() => _InforScreenState();
+}
+
+class _InforScreenState extends State<InforScreen> {
+  int shootsCount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Show the popup dialog
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showCountingDialog(130); // Example target count
+    });
+  }
+
+  void _showCountingDialog(int targetCount) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CountingDialog(
+          targetCount: targetCount,
+          onCountComplete: (count) {
+            setState(() {
+              shootsCount = count;
+            });
+            Navigator.of(context).pop();
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,13 +130,6 @@ class InforScreen extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.all(12), // Reduced padding
                     decoration: BoxDecoration(
-                      /*
-                      gradient: LinearGradient(
-                        colors: [Colors.blue[100]!, Colors.blue[300]!],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      */
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
@@ -133,7 +162,7 @@ class InforScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "120",
+                              "$shootsCount",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color.fromARGB(255, 246, 185, 59),
@@ -378,6 +407,57 @@ class InforScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class CountingDialog extends StatefulWidget {
+  final int targetCount;
+  final Function(int) onCountComplete;
+
+  CountingDialog({required this.targetCount, required this.onCountComplete});
+
+  @override
+  _CountingDialogState createState() => _CountingDialogState();
+}
+
+class _CountingDialogState extends State<CountingDialog> {
+  int count = 0;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(Duration(milliseconds: 100), (timer) {
+      setState(() {
+        count++;
+        if (count >= widget.targetCount) {
+          _timer?.cancel();
+          widget.onCountComplete(count);
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Counting...'),
+      content: Text('$count'),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('Close'),
+        ),
+      ],
     );
   }
 }
