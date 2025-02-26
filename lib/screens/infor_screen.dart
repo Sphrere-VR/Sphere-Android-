@@ -448,14 +448,20 @@ class _CountingDialogState extends State<CountingDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Counting...'),
-      content: Text('$count'),
+      content: Container(
+        width: double.maxFinite,
+        child: Text(
+          '$count',
+          style: TextStyle(fontSize: 48),
+          textAlign: TextAlign.center,
+        ),
+      ),
       actions: [
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Close'),
+          child: Text('Close', style: TextStyle(fontSize: 18)),
         ),
       ],
     );
