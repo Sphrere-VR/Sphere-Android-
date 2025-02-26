@@ -53,6 +53,7 @@ class InforScreen extends StatefulWidget {
 
 class _InforScreenState extends State<InforScreen> {
   int shootsCount = 0;
+  int escapedCount = 0;
 
   @override
   void initState() {
@@ -60,20 +61,22 @@ class _InforScreenState extends State<InforScreen> {
 
     // Show the popup dialog
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _showCountingDialog(130); // Example target count
+      _showCountingDialog(130, 2301); // Example target counts
     });
   }
 
-  void _showCountingDialog(int targetCount) {
+  void _showCountingDialog(int targetShoots, int targetEscaped) {
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return CountingDialog(
-          targetCount: targetCount,
-          onCountComplete: (count) {
+          targetShoots: targetShoots,
+          targetEscaped: targetEscaped,
+          onCountComplete: (shoots, escaped) {
             setState(() {
-              shootsCount = count;
+              shootsCount = shoots;
+              escapedCount = escaped;
             });
             Navigator.of(context).pop();
           },
@@ -192,7 +195,7 @@ class _InforScreenState extends State<InforScreen> {
                               ),
                             ),
                             Text(
-                              "2,301",
+                              "$escapedCount",
                               style: TextStyle(
                                 fontFamily: 'lucky',
                                 fontWeight: FontWeight.bold,
@@ -412,10 +415,15 @@ class _InforScreenState extends State<InforScreen> {
 }
 
 class CountingDialog extends StatefulWidget {
-  final int targetCount;
-  final Function(int) onCountComplete;
+  final int targetShoots;
+  final int targetEscaped;
+  final Function(int, int) onCountComplete;
 
-  CountingDialog({required this.targetCount, required this.onCountComplete});
+  CountingDialog({
+    required this.targetShoots,
+    required this.targetEscaped,
+    required this.onCountComplete,
+  });
 
   @override
   _CountingDialogState createState() => _CountingDialogState();
@@ -423,17 +431,34 @@ class CountingDialog extends StatefulWidget {
 
 class _CountingDialogState extends State<CountingDialog> {
   int count = 0;
+  int currentPage = 0;
   Timer? _timer;
+  PageController _pageController = PageController();
 
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(Duration(milliseconds: 100), (timer) {
+    _startCounting(widget.targetShoots);
+  }
+
+  void _startCounting(int targetCount) {
+    _timer = Timer.periodic(Duration(milliseconds: 50), (timer) {
+      // Faster counting
       setState(() {
         count++;
-        if (count >= widget.targetCount) {
+        if (count >= targetCount) {
           _timer?.cancel();
-          widget.onCountComplete(count);
+          if (currentPage == 0) {
+            _pageController.nextPage(
+              duration: Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            );
+            currentPage++;
+            count = 0;
+            _startCounting(widget.targetEscaped);
+          } else {
+            widget.onCountComplete(widget.targetShoots, count);
+          }
         }
       });
     });
@@ -442,6 +467,7 @@ class _CountingDialogState extends State<CountingDialog> {
   @override
   void dispose() {
     _timer?.cancel();
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -449,21 +475,47 @@ class _CountingDialogState extends State<CountingDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       content: Container(
-        width: double.maxFinite,
-        child: Text(
-          '$count',
-          style: TextStyle(fontSize: 48),
-          textAlign: TextAlign.center,
+        width: 200, // Fixed width
+        height: 200, // Fixed height
+        child: PageView(
+          controller: _pageController,
+          physics: NeverScrollableScrollPhysics(),
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Shoots',
+                    style: TextStyle(fontSize: 24),
+                  ),
+                  Text(
+                    '$count',
+                    style: TextStyle(fontSize: 48),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Escaped',
+                    style: TextStyle(fontSize: 24),
+                  ),
+                  Text(
+                    '$count',
+                    style: TextStyle(fontSize: 48),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text('Close', style: TextStyle(fontSize: 18)),
-        ),
-      ],
     );
   }
 }
