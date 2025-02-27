@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
+import 'package:confetti/confetti.dart'; // Add this import
 
 void main() {
   runApp(MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-//Cals function for the separater in the card between the Enemy and gun
+// Define the CurvedSeparatorPainter class
 class CurvedSeparatorPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -54,15 +55,24 @@ class InforScreen extends StatefulWidget {
 class _InforScreenState extends State<InforScreen> {
   int shootsCount = 0;
   int escapedCount = 0;
+  late ConfettiController _confettiController; // Add this line
 
   @override
   void initState() {
     super.initState();
+    _confettiController = ConfettiController(
+        duration: const Duration(seconds: 10)); // Add this line
 
     // Show the popup dialog
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showCountingDialog(130, 115); // Example target counts
     });
+  }
+
+  @override
+  void dispose() {
+    _confettiController.dispose(); // Add this line
+    super.dispose();
   }
 
   void _showCountingDialog(int targetShoots, int targetEscaped) {
@@ -78,11 +88,15 @@ class _InforScreenState extends State<InforScreen> {
               shootsCount = shoots;
               escapedCount = escaped;
             });
+            _confettiController.play(); // Add this line
             Navigator.of(context).pop();
           },
         );
       },
-    );
+    ).then((_) {
+      // Show confetti from the bottom after the dialog is dismissed
+      _confettiController.play();
+    });
   }
 
   @override
@@ -406,6 +420,16 @@ class _InforScreenState extends State<InforScreen> {
                   ),
                 ],
               ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: ConfettiWidget(
+              confettiController: _confettiController,
+              blastDirection: -3.14 / 2, // Blast direction (upwards)
+              emissionFrequency: 0.05, // How often it emits
+              numberOfParticles: 20, // Number of particles
+              gravity: 0.1, // Gravity of the particles
             ),
           ),
         ],
