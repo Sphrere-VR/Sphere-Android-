@@ -471,17 +471,28 @@ class _CountingDialogState extends State<CountingDialog> {
     super.dispose();
   }
 
-  @override
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
         side: BorderSide(color: Colors.black, width: 2), // Border color
-        borderRadius: BorderRadius.circular(8), // Rounded corners
+        borderRadius: BorderRadius.circular(25), // Rounded corners
       ),
       child: Container(
-        width: 50,
+        width: 150,
         height: 150,
-        padding: EdgeInsets.all(6), // Adjusted padding to maximize space
+        padding: EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromRGBO(105, 240, 174, 1).withOpacity(0.5),
+              Color.fromRGBO(105, 240, 174, 1)
+                  .withOpacity(0.5), // Uniform color
+            ],
+          ),
+          borderRadius: BorderRadius.circular(25),
+        ),
         child: PageView(
           controller: _pageController,
           physics: NeverScrollableScrollPhysics(),
@@ -506,13 +517,16 @@ class _CountingDialogState extends State<CountingDialog> {
         Text(
           title,
           style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold), // Slightly bigger text
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: Colors.black), // Text color for contrast
         ),
         Text(
           '$count',
           style: TextStyle(
-              fontSize: 35, fontWeight: FontWeight.bold), // Bigger number
+              fontSize: 35,
+              fontWeight: FontWeight.bold,
+              color: Colors.black), // Text color for visibility
           textAlign: TextAlign.center,
         ),
       ],
