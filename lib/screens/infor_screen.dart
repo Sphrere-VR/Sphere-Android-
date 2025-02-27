@@ -61,7 +61,7 @@ class _InforScreenState extends State<InforScreen> {
 
     // Show the popup dialog
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _showCountingDialog(130, 2301); // Example target counts
+      _showCountingDialog(130, 115); // Example target counts
     });
   }
 
@@ -473,49 +473,49 @@ class _CountingDialogState extends State<CountingDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      content: Container(
-        width: 200, // Fixed width
-        height: 200, // Fixed height
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: Colors.black, width: 2), // Border color
+        borderRadius: BorderRadius.circular(8), // Rounded corners
+      ),
+      child: Container(
+        width: 50,
+        height: 150,
+        padding: EdgeInsets.all(6), // Adjusted padding to maximize space
         child: PageView(
           controller: _pageController,
           physics: NeverScrollableScrollPhysics(),
           children: [
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Shoots',
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  Text(
-                    '$count',
-                    style: TextStyle(fontSize: 48),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Escaped',
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  Text(
-                    '$count',
-                    style: TextStyle(fontSize: 48),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
+            _buildPage('assets/images/shoots.png', 'Shoots'),
+            _buildPage('assets/images/EnemyAlien.png', 'Escaped'),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildPage(String imagePath, String title) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          imagePath,
+          width: 60, // Increased size
+          height: 60, // Increased size
+        ),
+        Text(
+          title,
+          style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold), // Slightly bigger text
+        ),
+        Text(
+          '$count',
+          style: TextStyle(
+              fontSize: 35, fontWeight: FontWeight.bold), // Bigger number
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }
