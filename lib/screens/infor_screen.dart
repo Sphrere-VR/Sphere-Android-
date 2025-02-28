@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
 import 'package:confetti/confetti.dart'; // Add this import
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() {
   runApp(MyApp());
@@ -97,6 +98,26 @@ class _InforScreenState extends State<InforScreen> {
       // Show confetti from the bottom after the dialog is dismissed
       _confettiController.play();
     });
+  }
+
+  Future<void> gameDataFromFirestire() async {
+    try {
+      // Get a reference to the Firestore collection
+      CollectionReference collectionRef =
+          FirebaseFirestore.instance.collection('your_collection_name');
+
+      // Fetch the documents from the collection
+      QuerySnapshot querySnapshot = await collectionRef.get();
+
+      // Process the documents
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        // Do something with the data
+        print('Document data: ${data}');
+      }
+    } catch (e) {
+      print('Error fetching data from Firestore: $e');
+    }
   }
 
   @override
@@ -428,8 +449,8 @@ class _InforScreenState extends State<InforScreen> {
               confettiController: _confettiController,
               blastDirection: -3.14 / 2, // Blast direction (upwards)
               emissionFrequency: 0.05, // How often it emits
-              numberOfParticles: 20, // Number of particles
-              gravity: 0.1, // Gravity of the particles
+              numberOfParticles: 10, // Number of particles
+              gravity: 0.0, // Reduced gravity for higher reach
             ),
           ),
         ],
@@ -541,16 +562,20 @@ class _CountingDialogState extends State<CountingDialog> {
         Text(
           title,
           style: TextStyle(
+              fontFamily: 'lucky',
               fontSize: 15,
               fontWeight: FontWeight.bold,
-              color: Colors.black), // Text color for contrast
+              color: const Color.fromARGB(
+                  255, 255, 255, 255)), // Text color for contrast
         ),
         Text(
           '$count',
           style: TextStyle(
+              fontFamily: 'lucky',
               fontSize: 35,
               fontWeight: FontWeight.bold,
-              color: Colors.black), // Text color for visibility
+              color: const Color.fromARGB(
+                  255, 246, 185, 59)), // Text color for visibility
           textAlign: TextAlign.center,
         ),
       ],

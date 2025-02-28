@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "32276712840",
+    "firebase_url": "https://shere-4c8bc-default-rtdb.firebaseio.com",
+    "project_id": "shere-4c8bc",
+    "storage_bucket": "shere-4c8bc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32276712840:android:ee8770688384b62312fe3d",
+        "android_client_info": {
+          "package_name": "com.example.sphere_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPneNi7xi_JuzrMk0k48eK153HyQo_MmE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
