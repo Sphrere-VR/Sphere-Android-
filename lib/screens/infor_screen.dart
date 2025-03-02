@@ -117,12 +117,13 @@ class _InforScreenState extends State<InforScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 5), // Reduced top space for title
+            SizedBox(height: 30), // Reduced top space for title
             Center(
               child: Text(
                 "Your Game Infor",
                 style: TextStyle(
-                  fontSize: 22,
+                  fontFamily: 'lucky',
+                  fontSize: 25,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
@@ -156,6 +157,7 @@ class _InforScreenState extends State<InforScreen>
                             Text(
                               "Recent Activity",
                               style: TextStyle(
+                                fontFamily: 'lucky',
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -254,11 +256,19 @@ class _InforScreenState extends State<InforScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildActivityRow("Renewed account with BB_10MBPS_2M plan"),
-          _buildActivityRow("Closed issue #12345"),
-          _buildActivityRow("Opened issue #123456"),
-          _buildActivityRow("Changed plan to BB_10MBPS_2M"),
-          _buildActivityRow("Customer was added by @johndoe"),
+          _buildActivityRow("Shoots: $enemiesKilled Escaped: $enemiesEscaped"),
+          Divider(),
+          _buildActivityRow("Yet to be worked on: "),
+          Divider(),
+          _buildActivityRow("Yet to be worked on: "),
+          Divider(),
+          _buildActivityRow("Yet to be worked on: "),
+          Divider(),
+          _buildActivityRow("Yet to be worked on: "),
+          Divider(),
+          _buildActivityRow("Yet to be worked on: "),
+          Divider(),
+          _buildActivityRow("Yet to be worked on: "),
         ],
       ),
     );
@@ -266,10 +276,23 @@ class _InforScreenState extends State<InforScreen>
 
   Widget _buildActivityRow(String activity) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 1.0),
-      child: Text(
-        activity,
-        style: TextStyle(fontSize: 14),
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        children: [
+          Icon(Icons.account_circle,
+              size: 20, color: Colors.black), // User Icon
+          SizedBox(width: 8), // Spacing between icon and text
+          Expanded(
+            child: Text(
+              activity,
+              style: TextStyle(
+                fontFamily: 'lucky',
+                fontSize: 12,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
