@@ -2,23 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sphere_app/screens/infor_screen.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        textTheme: GoogleFonts.luckiestGuyTextTheme(),
-      ),
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
-    );
-  }
-}
-
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -33,16 +16,15 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  // Custom transition to the Game Screen
   void _navigateToGameScreen(BuildContext context) {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => InforScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          const begin = Offset(1.0, 0.0); // Start from the right side
-          const end = Offset.zero; // End at the center
-          const curve = Curves.easeInOut; // Smooth transition
+          const begin = Offset(1.0, 0.0);
+          const end = Offset.zero;
+          const curve = Curves.easeInOut;
 
           var tween =
               Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
@@ -72,12 +54,120 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+// Positioned widget for top-left menu & profile icons
+// Positioned widget for top-left menu, profile, notification, and help center icons
+          Positioned(
+            top: 50, // Adjust based on status bar height
+            left: 20,
+            right: 20, // Ensures alignment on both sides
+            child: Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween, // Aligns left & right icons
+              children: [
+                // Left Side: Menu & Profile Icons
+                Row(
+                  children: [
+                    // Menu Icon
+                    GestureDetector(
+                      onTap: () {
+                        print('Menu button pressed');
+                        // Implement menu action here
+                      },
+                      child: Icon(
+                        Icons.menu,
+                        size: 30,
+                        color: const Color.fromARGB(255, 95, 95, 95),
+                      ),
+                    ),
+                    SizedBox(width: 10), // Space between icons
+
+                    // Profile Icon with Border and Transparent Background
+                    GestureDetector(
+                      onTap: () {
+                        print('Profile button pressed');
+                        // Implement profile action here
+                      },
+                      child: Container(
+                        width: 35, // Kept at 30 as requested
+                        height: 35, // Kept at 30 as requested
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.black, // Border color
+                            width: 3, // Border thickness
+                          ),
+                        ),
+                        child: ClipOval(
+                          child: Image.asset(
+                            'assets/images/vr.webp', // Your profile image
+                            fit: BoxFit
+                                .cover, // Ensures the image fills the container
+                            width: 25, // Matching container size
+                            height: 25, // Matching container size
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                // Right Side: Notification & Help Center Icons
+                Row(
+                  children: [
+                    // Notification Icon with Red Badge
+                    Stack(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            print('Notification button pressed');
+                            // Implement notification action here
+                          },
+                          child: Icon(
+                            Icons.notifications,
+                            size: 30,
+                            color: const Color.fromARGB(255, 95, 95, 95),
+                          ),
+                        ),
+                        // Red Dot for Notification Badge (Optional)
+                        Positioned(
+                          top: 2,
+                          right: 2,
+                          child: Container(
+                            width: 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color:
+                                  Colors.red, // Red badge for new notifications
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: 15), // Space between icons
+
+                    // Help Center Icon
+                    GestureDetector(
+                      onTap: () {
+                        print('Help Center button pressed');
+                        // Implement Help Center action here
+                      },
+                      child: Icon(
+                        Icons.help_outline, // Help icon
+                        size: 30,
+                        color: const Color.fromARGB(255, 95, 95, 95),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
 
           // Main Content
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Game Image
               Container(
                 height: 350,
                 width: double.infinity,
@@ -137,25 +227,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontFamily: 'lucky',
                         fontSize: 15,
                         color: Colors.black54,
-                        //fontStyle: FontStyle.italic,
                       ),
                     ),
                     SizedBox(height: 20),
 
                     // Play Button with Press Effect
                     GestureDetector(
-                      onTapDown: (_) => _setPressed(true), // Press animation
+                      onTapDown: (_) => _setPressed(true),
                       onTapUp: (_) {
                         _setPressed(false);
-                        _navigateToGameScreen(
-                            context); // Navigate after release
+                        _navigateToGameScreen(context);
                       },
-                      onTapCancel: () =>
-                          _setPressed(false), // Reset if canceled
+                      onTapCancel: () => _setPressed(false),
                       child: AnimatedContainer(
                         duration: Duration(milliseconds: 100),
                         transform: _isPressed
-                            ? Matrix4.translationValues(0, 5, 0) // Move down
+                            ? Matrix4.translationValues(0, 5, 0)
                             : Matrix4.identity(),
                         child: Container(
                           padding: EdgeInsets.symmetric(
@@ -167,16 +254,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Color.fromARGB(255, 12, 12, 12),
                               width: 2,
                             ),
-                            /*
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.greenAccent.withOpacity(0.5),
-                                spreadRadius: 3,
-                                blurRadius: 10,
-                                offset: Offset(0, 5),
-                              ),
-                            ],
-                            */
                           ),
                           child: Text(
                             "PLAY NOW",
