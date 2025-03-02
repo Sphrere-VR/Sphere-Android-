@@ -10,6 +10,25 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool _isPressed = false;
 
+  Widget _buildCategoryIcon(IconData icon, Color color) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 5),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: color.withOpacity(0.2),
+        border: Border.all(
+          color: color,
+          width: 2,
+        ),
+      ),
+      child: Icon(
+        icon,
+        size: 30,
+        color: color,
+      ),
+    );
+  }
+
   void _setPressed(bool isPressed) {
     setState(() {
       _isPressed = isPressed;
@@ -54,24 +73,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-// Positioned widget for top-left menu & profile icons
-// Positioned widget for top-left menu, profile, notification, and help center icons
+
           Positioned(
-            top: 50, // Adjust based on status bar height
+            top: 50,
             left: 20,
-            right: 20, // Ensures alignment on both sides
+            right: 20,
             child: Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween, // Aligns left & right icons
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Left Side: Menu & Profile Icons
                 Row(
                   children: [
-                    // Menu Icon
                     GestureDetector(
                       onTap: () {
                         print('Menu button pressed');
-                        // Implement menu action here
                       },
                       child: Icon(
                         Icons.menu,
@@ -79,48 +93,40 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: const Color.fromARGB(255, 95, 95, 95),
                       ),
                     ),
-                    SizedBox(width: 10), // Space between icons
-
-                    // Profile Icon with Border and Transparent Background
+                    SizedBox(width: 10),
                     GestureDetector(
                       onTap: () {
                         print('Profile button pressed');
-                        // Implement profile action here
                       },
                       child: Container(
-                        width: 35, // Kept at 30 as requested
-                        height: 35, // Kept at 30 as requested
+                        width: 35,
+                        height: 35,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: Colors.black, // Border color
-                            width: 3, // Border thickness
+                            color: Colors.black,
+                            width: 3,
                           ),
                         ),
                         child: ClipOval(
                           child: Image.asset(
-                            'assets/images/vr.webp', // Your profile image
-                            fit: BoxFit
-                                .cover, // Ensures the image fills the container
-                            width: 25, // Matching container size
-                            height: 25, // Matching container size
+                            'assets/images/vr.webp',
+                            fit: BoxFit.cover,
+                            width: 25,
+                            height: 25,
                           ),
                         ),
                       ),
                     ),
                   ],
                 ),
-
-                // Right Side: Notification & Help Center Icons
                 Row(
                   children: [
-                    // Notification Icon with Red Badge
                     Stack(
                       children: [
                         GestureDetector(
                           onTap: () {
                             print('Notification button pressed');
-                            // Implement notification action here
                           },
                           child: Icon(
                             Icons.notifications,
@@ -128,7 +134,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: const Color.fromARGB(255, 95, 95, 95),
                           ),
                         ),
-                        // Red Dot for Notification Badge (Optional)
                         Positioned(
                           top: 2,
                           right: 2,
@@ -137,23 +142,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 8,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color:
-                                  Colors.red, // Red badge for new notifications
+                              color: Colors.red,
                             ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(width: 15), // Space between icons
-
-                    // Help Center Icon
+                    SizedBox(width: 15),
                     GestureDetector(
                       onTap: () {
                         print('Help Center button pressed');
-                        // Implement Help Center action here
                       },
                       child: Icon(
-                        Icons.help_outline, // Help icon
+                        Icons.help_outline,
                         size: 30,
                         color: const Color.fromARGB(255, 95, 95, 95),
                       ),
@@ -164,7 +165,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
-          // Main Content
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -178,8 +178,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-
-              // Card Container
               Container(
                 padding: EdgeInsets.all(20),
                 margin: EdgeInsets.symmetric(horizontal: 20),
@@ -229,6 +227,34 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.black54,
                       ),
                     ),
+                    Divider(
+                      color: Colors.black,
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "Discover games",
+                      style: TextStyle(
+                        fontFamily: 'lucky',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildCategoryIcon(Icons.pets, Colors.blue),
+                        SizedBox(width: 10),
+                        _buildCategoryIcon(Icons.pets, Colors.red),
+                        SizedBox(width: 10),
+                        _buildCategoryIcon(Icons.pets, Colors.grey),
+                        SizedBox(width: 10),
+                        _buildCategoryIcon(Icons.pets, Colors.orange),
+                        SizedBox(width: 10),
+                        _buildCategoryIcon(Icons.pets, Colors.green),
+                      ],
+                    ),
                     SizedBox(height: 20),
 
                     // Play Button with Press Effect
@@ -271,39 +297,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ],
-          ),
-
-          // "Made and Designed by EPJ" at Bottom
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Made and Designed by ",
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      print('EPJ link tapped');
-                    },
-                    child: Text(
-                      "Edward",
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        fontSize: 12,
-                        color: Colors.blue.withOpacity(0.5),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ),
         ],
       ),
