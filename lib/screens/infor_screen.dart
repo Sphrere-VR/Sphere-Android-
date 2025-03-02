@@ -297,9 +297,9 @@ class _InforScreenState extends State<InforScreen>
           _buildActivityRow("Shoots: $enemiesKilled Escaped: $enemiesEscaped",
               recentActivityTime),
           Divider(),
-          _buildActivityRow("Yet to be worked on: ", ""),
+          _buildActivityRow("Yet to be worked on: ", recentActivityTime),
           Divider(),
-          _buildActivityRow("Yet to be worked on: ", ""),
+          _buildActivityRow("Yet to be worked on: ", recentActivityTime),
         ],
       ),
     );
