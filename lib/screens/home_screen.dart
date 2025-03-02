@@ -167,6 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Color.fromARGB(255, 12, 12, 12),
                               width: 2,
                             ),
+                            /*
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.greenAccent.withOpacity(0.5),
@@ -175,6 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 offset: Offset(0, 5),
                               ),
                             ],
+                            */
                           ),
                           child: Text(
                             "PLAY NOW",

@@ -372,7 +372,7 @@ class _InforScreenState extends State<InforScreen>
             width: 30, // Circle size
             height: 30,
             decoration: BoxDecoration(
-              color: Colors.transparent, // Transparent inside
+              color: Colors.greenAccent,
               shape: BoxShape.circle, // Perfect circle
               border: Border.all(color: Colors.black, width: 2), // Border
             ),
