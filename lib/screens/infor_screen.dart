@@ -132,6 +132,13 @@ class _InforScreenState extends State<InforScreen>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _buildBackButton(context), // Custom back button
+            /*
+            Divider(
+              height: 30,
+              color: Colors.black,
+              thickness: 1,
+            ),
+            */
             Center(
               child: Text(
                 "Your Game",
@@ -353,6 +360,34 @@ class _InforScreenState extends State<InforScreen>
 
 //Back button widget
   Widget _buildBackButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 40, left: 16), // Adjust position
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            width: 30, // Circle size
+            height: 30,
+            decoration: BoxDecoration(
+              color: Colors.transparent, // Transparent inside
+              shape: BoxShape.circle, // Perfect circle
+              border: Border.all(color: Colors.black, width: 2), // Border
+            ),
+            child: Center(
+              child: Icon(Icons.arrow_back,
+                  color: Colors.black, size: 16), // Smaller icon
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+//Back button widget
+  Widget _buildBackButtonP(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 40, left: 16), // Adjust position
       child: Align(
