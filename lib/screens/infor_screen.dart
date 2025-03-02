@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 
+import 'package:intl/intl.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -39,6 +41,8 @@ class _InforScreenState extends State<InforScreen>
   late Animation<double> _statsAnimation;
   late AnimationController _recentActivityController;
   late Animation<Offset> _recentActivityAnimation;
+
+  String recentActivityTime = ""; // Variable to store the timestamp
 
   @override
   void initState() {
@@ -82,6 +86,10 @@ class _InforScreenState extends State<InforScreen>
         setState(() {
           targetEnemiesKilled = snapshot['enemiesKilled'] ?? 0;
           targetEnemiesEscaped = snapshot['enemiesEscaped'] ?? 0;
+          Timestamp timestamp = snapshot['timestamp']; // Get timestamp
+          String formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss')
+              .format(timestamp.toDate()); // Format timestamp
+          recentActivityTime = formattedTime; // Save the formatted time
         });
         animateCounter();
       }
@@ -160,6 +168,7 @@ class _InforScreenState extends State<InforScreen>
                                 fontFamily: 'lucky',
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 246, 185, 59),
                               ),
                             ),
                             SlideTransition(
@@ -281,6 +290,15 @@ class _InforScreenState extends State<InforScreen>
           _buildActivityRow("Yet to be worked on: "),
           Divider(),
           _buildActivityRow("Yet to be worked on: "),
+          Divider(),
+          // Add timestamp at the bottom
+                  Text(
+          "Last update: $recentActivityTime",
+          style: TextStyle(
+            fontStyle: FontStyle.italic,
+            color: Color(0xFFB39DDB), // Dreamy light purple color
+            fontSize: 12,
+          ),
         ],
       ),
     );
