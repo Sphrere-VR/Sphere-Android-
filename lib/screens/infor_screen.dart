@@ -120,12 +120,12 @@ class _InforScreenState extends State<InforScreen>
             SizedBox(height: 30), // Reduced top space for title
             Center(
               child: Text(
-                "Your Game Infor",
+                "Your Game",
                 style: TextStyle(
                   fontFamily: 'lucky',
-                  fontSize: 25,
+                  fontSize: 35,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color.fromARGB(255, 246, 185, 59),
                 ),
               ),
             ),
@@ -211,15 +211,31 @@ class _InforScreenState extends State<InforScreen>
       String label, int value, String imagePath, bool counting) {
     return Column(
       children: [
-        SizedBox(
-          width: 70,
-          height: 70,
-          child: Image.asset(imagePath),
+        // Create a round circle with a border for the image
+        ClipOval(
+          child: Container(
+            width: 70, // Width of the circle
+            height: 70, // Height of the circle
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 255, 255,
+                  255), // Optional: background color for the circle
+              shape: BoxShape.circle, // Ensures it's circular
+              border: Border.all(
+                color: const Color.fromARGB(255, 0, 0, 0), // Border color
+                width: 2, // Border width
+              ),
+            ),
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.cover, // Ensure the image fits within the circle
+            ),
+          ),
         ),
+        SizedBox(height: 8), // Adds spacing between the image and text
         Text(
           label,
           style: TextStyle(
-            color: Color.fromARGB(255, 246, 185, 59),
+            color: Colors.black54,
             fontFamily: 'lucky',
             fontSize: 14,
           ),
@@ -265,10 +281,6 @@ class _InforScreenState extends State<InforScreen>
           _buildActivityRow("Yet to be worked on: "),
           Divider(),
           _buildActivityRow("Yet to be worked on: "),
-          Divider(),
-          _buildActivityRow("Yet to be worked on: "),
-          Divider(),
-          _buildActivityRow("Yet to be worked on: "),
         ],
       ),
     );
@@ -289,6 +301,7 @@ class _InforScreenState extends State<InforScreen>
                 fontFamily: 'lucky',
                 fontSize: 12,
                 fontWeight: FontWeight.w300,
+                color: Colors.black54,
               ),
             ),
           ),
