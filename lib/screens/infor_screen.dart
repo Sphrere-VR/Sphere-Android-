@@ -44,6 +44,13 @@ class _InforScreenState extends State<InforScreen>
 
   String recentActivityTime = ""; // Variable to store the timestamp
 
+  String formatTimestamp(Timestamp timestamp) {
+    DateTime dateTime = timestamp.toDate();
+    String time = DateFormat('h:mm a').format(dateTime);
+    String date = DateFormat('EEEE, d MMM y').format(dateTime);
+    return "$time\n$date";
+  }
+
   @override
   void initState() {
     super.initState();
@@ -86,10 +93,9 @@ class _InforScreenState extends State<InforScreen>
         setState(() {
           targetEnemiesKilled = snapshot['enemiesKilled'] ?? 0;
           targetEnemiesEscaped = snapshot['enemiesEscaped'] ?? 0;
-          Timestamp timestamp = snapshot['timestamp']; // Get timestamp
-          String formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss')
-              .format(timestamp.toDate()); // Format timestamp
-          recentActivityTime = formattedTime; // Save the formatted time
+          Timestamp timestamp = snapshot['timestamp'];
+          recentActivityTime =
+              formatTimestamp(timestamp); // Store formatted time
         });
         animateCounter();
       }
@@ -281,47 +287,64 @@ class _InforScreenState extends State<InforScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildActivityRow("Shoots: $enemiesKilled Escaped: $enemiesEscaped"),
+          _buildActivityRow("Shoots: $enemiesKilled Escaped: $enemiesEscaped",
+              recentActivityTime),
           Divider(),
-          _buildActivityRow("Yet to be worked on: "),
+          _buildActivityRow("Yet to be worked on: ", ""),
           Divider(),
-          _buildActivityRow("Yet to be worked on: "),
-          Divider(),
-          _buildActivityRow("Yet to be worked on: "),
-          Divider(),
-          _buildActivityRow("Yet to be worked on: "),
-          Divider(),
-          // Add timestamp at the bottom
-                  Text(
-          "Last update: $recentActivityTime",
-          style: TextStyle(
-            fontStyle: FontStyle.italic,
-            color: Color(0xFFB39DDB), // Dreamy light purple color
-            fontSize: 12,
-          ),
+          _buildActivityRow("Yet to be worked on: ", ""),
         ],
       ),
     );
   }
 
-  Widget _buildActivityRow(String activity) {
+  Widget _buildActivityRow(String activity, String timeAndDate) {
+    List<String> parts = timeAndDate.split("\n"); // Split time and date
+    String time = parts[0]; // Extract time
+    String date = parts.length > 1 ? parts[1] : ""; // Extract date
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(Icons.account_circle,
-              size: 20, color: Colors.black), // User Icon
-          SizedBox(width: 8), // Spacing between icon and text
-          Expanded(
-            child: Text(
-              activity,
-              style: TextStyle(
-                fontFamily: 'lucky',
-                fontSize: 12,
-                fontWeight: FontWeight.w300,
-                color: Colors.black54,
+          Row(
+            children: [
+              Icon(Icons.account_circle, size: 20, color: Colors.black),
+              SizedBox(width: 8),
+              Text(
+                activity,
+                style: TextStyle(
+                  fontFamily: 'lucky',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w300,
+                  color: Colors.black54,
+                ),
               ),
-            ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                time,
+                style: TextStyle(
+                  fontFamily: 'lucky',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey,
+                ),
+              ),
+              Text(
+                date,
+                style: TextStyle(
+                  fontFamily: 'lucky',
+                  fontSize: 10,
+                  fontWeight: FontWeight.w300,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
           ),
         ],
       ),
