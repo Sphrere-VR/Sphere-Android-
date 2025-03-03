@@ -110,24 +110,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         print('Profile button pressed');
                       },
                       child: Container(
-                        width: 32, // Reduced size
-                        height: 32,
+                        padding: EdgeInsets.all(
+                            6), // Matches the other icons' padding
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors
                               .white, // White background inside the circle
                           border: Border.all(
-                            color: Colors
-                                .grey, // Matching the other icons' border color
-                            width: 2, // Slightly thinner border for consistency
+                            color: Color.fromARGB(255, 0, 0, 0),
+                            width: 2, // Matching border width
                           ),
                         ),
                         child: ClipOval(
                           child: Image.asset(
                             'assets/images/vr.webp',
                             fit: BoxFit.cover,
-                            width: 28, // Adjusted to fit better
-                            height: 28,
+                            width: 24, // Same as other icons
+                            height: 24,
                           ),
                         ),
                       ),
