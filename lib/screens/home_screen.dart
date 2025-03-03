@@ -87,10 +87,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       onTap: () {
                         print('Menu button pressed');
                       },
-                      child: Icon(
-                        Icons.menu,
-                        size: 30,
-                        color: const Color.fromARGB(255, 95, 95, 95),
+                      child: Container(
+                        padding: EdgeInsets.all(6), // Reduced padding
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors
+                              .white, // White background inside the circle
+                          border: Border.all(
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                              width: 2),
+                        ),
+                        child: Icon(
+                          Icons.menu,
+                          size: 24, // Reduced icon size
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
                       ),
                     ),
                     SizedBox(width: 10),
@@ -99,21 +110,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         print('Profile button pressed');
                       },
                       child: Container(
-                        width: 35,
-                        height: 35,
+                        width: 32, // Reduced size
+                        height: 32,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
+                          color: Colors
+                              .white, // White background inside the circle
                           border: Border.all(
-                            color: Colors.black,
-                            width: 3,
+                            color: Colors
+                                .grey, // Matching the other icons' border color
+                            width: 2, // Slightly thinner border for consistency
                           ),
                         ),
                         child: ClipOval(
                           child: Image.asset(
                             'assets/images/vr.webp',
                             fit: BoxFit.cover,
-                            width: 25,
-                            height: 25,
+                            width: 28, // Adjusted to fit better
+                            height: 28,
                           ),
                         ),
                       ),
@@ -128,17 +142,28 @@ class _HomeScreenState extends State<HomeScreen> {
                           onTap: () {
                             print('Notification button pressed');
                           },
-                          child: Icon(
-                            Icons.notifications,
-                            size: 30,
-                            color: const Color.fromARGB(255, 95, 95, 95),
+                          child: Container(
+                            padding: EdgeInsets.all(6), // Reduced padding
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors
+                                  .white, // White background inside the circle
+                              border: Border.all(
+                                  color: const Color.fromARGB(255, 0, 0, 0),
+                                  width: 2),
+                            ),
+                            child: Icon(
+                              Icons.notifications,
+                              size: 24, // Reduced icon size
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
                           ),
                         ),
                         Positioned(
-                          top: 2,
-                          right: 2,
+                          top: 3,
+                          right: 3,
                           child: Container(
-                            width: 8,
+                            width: 8, // Reduced indicator size
                             height: 8,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -148,19 +173,30 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(width: 15),
+                    SizedBox(width: 12), // Reduced spacing
                     GestureDetector(
                       onTap: () {
                         print('Help Center button pressed');
                       },
-                      child: Icon(
-                        Icons.help_outline,
-                        size: 30,
-                        color: const Color.fromARGB(255, 95, 95, 95),
+                      child: Container(
+                        padding: EdgeInsets.all(6), // Reduced padding
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors
+                              .white, // White background inside the circle
+                          border: Border.all(
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                              width: 2),
+                        ),
+                        child: Icon(
+                          Icons.help_outline,
+                          size: 24, // Reduced icon size
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
                       ),
                     ),
                   ],
-                ),
+                )
               ],
             ),
           ),
