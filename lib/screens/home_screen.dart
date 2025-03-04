@@ -266,30 +266,48 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.black,
                     ),
                     SizedBox(height: 10),
-                    Text(
-                      "Discover games",
-                      style: TextStyle(
-                        fontFamily: 'lucky',
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Discover",
+                          style: TextStyle(
+                            fontFamily: 'lucky',
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          "See more",
+                          style: TextStyle(
+                            fontFamily: 'lucky',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.blue, // Blue color for emphasis
+                            decoration:
+                                TextDecoration.underline, // Underline added
+                            decorationColor:
+                                Colors.blue, // Ensures underline is blue
+                          ),
+                        ),
+                      ],
                     ),
+
                     SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        _buildCategoryIcon(Icons.pets, Colors.blue),
+                        _buildImageWithBorder('assets/images/shoots.png'),
                         SizedBox(width: 10),
-                        _buildCategoryIcon(Icons.pets, Colors.red),
+                        _buildImageWithBorder('assets/images/shoots.png'),
                         SizedBox(width: 10),
-                        _buildCategoryIcon(Icons.pets, Colors.grey),
+                        _buildImageWithBorder('assets/images/shoots.png'),
                         SizedBox(width: 10),
-                        _buildCategoryIcon(Icons.pets, Colors.orange),
-                        SizedBox(width: 10),
-                        _buildCategoryIcon(Icons.pets, Colors.green),
+                        _buildImageWithBorder('assets/images/shoots.png'),
                       ],
                     ),
+
                     SizedBox(height: 20),
 
                     // Play Button with Press Effect
@@ -337,4 +355,23 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
+Widget _buildImageWithBorder(String imagePath) {
+  return Container(
+    width: 50, // Adjust as needed
+    height: 50, // Adjust as needed
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      border: Border.all(color: Colors.black, width: 2), // Border color & width
+    ),
+    child: ClipOval(
+      child: Image.asset(
+        imagePath,
+        width: 40, // Adjust image size within the border
+        height: 40,
+        fit: BoxFit.cover, // Ensures the image fits well
+      ),
+    ),
+  );
 }
