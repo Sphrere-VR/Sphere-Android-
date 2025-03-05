@@ -55,6 +55,44 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _showDraggableSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return Container(
+          width: MediaQuery.of(context).size.width,
+          child: DraggableScrollableSheet(
+            expand: false,
+            initialChildSize: 0.5,
+            minChildSize: 0.25,
+            maxChildSize: 0.75,
+            builder: (context, scrollController) {
+              return SingleChildScrollView(
+                controller: scrollController,
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Draggable Scroll Sheet',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      // Add more content here
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,132 +109,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   Color.fromRGBO(105, 240, 174, 1).withOpacity(0.5),
                 ],
               ),
-            ),
-          ),
-
-          Positioned(
-            top: 50,
-            left: 20,
-            right: 20,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        print('Menu button pressed');
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(6), // Reduced padding
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors
-                              .white, // White background inside the circle
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 0, 0, 0),
-                              width: 2),
-                        ),
-                        child: Icon(
-                          Icons.menu,
-                          size: 24, // Reduced icon size
-                          color: Color.fromARGB(255, 0, 0, 0),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    GestureDetector(
-                      onTap: () {
-                        print('Profile button pressed');
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(
-                            6), // Matches the other icons' padding
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors
-                              .white, // White background inside the circle
-                          border: Border.all(
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            width: 2, // Matching border width
-                          ),
-                        ),
-                        child: ClipOval(
-                          child: Image.asset(
-                            'assets/images/vr.webp',
-                            fit: BoxFit.cover,
-                            width: 24, // Same as other icons
-                            height: 24,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Stack(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            print('Notification button pressed');
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(6), // Reduced padding
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors
-                                  .white, // White background inside the circle
-                              border: Border.all(
-                                  color: const Color.fromARGB(255, 0, 0, 0),
-                                  width: 2),
-                            ),
-                            child: Icon(
-                              Icons.notifications,
-                              size: 24, // Reduced icon size
-                              color: Color.fromARGB(255, 0, 0, 0),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 3,
-                          right: 3,
-                          child: Container(
-                            width: 8, // Reduced indicator size
-                            height: 8,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 12), // Reduced spacing
-                    GestureDetector(
-                      onTap: () {
-                        print('Help Center button pressed');
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(6), // Reduced padding
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors
-                              .white, // White background inside the circle
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 0, 0, 0),
-                              width: 2),
-                        ),
-                        child: Icon(
-                          Icons.help_outline,
-                          size: 24, // Reduced icon size
-                          color: Color.fromARGB(255, 0, 0, 0),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
             ),
           ),
 
@@ -351,6 +263,82 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
+          Positioned(
+            top: 40,
+            left: 20,
+            child: Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(0), // No padding
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white, // White background inside the circle
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                        width: 2), // Reduced border width
+                  ),
+                  child: IconButton(
+                    iconSize: 25, // Reduced icon size
+                    constraints: BoxConstraints(
+                      minWidth: 25, // Minimum width for the IconButton
+                      minHeight: 20, // Minimum height for the IconButton
+                    ),
+                    icon: Icon(Icons.menu, color: Colors.black),
+                    onPressed: () => _showDraggableSheet(context),
+                  ),
+                ),
+                SizedBox(width: 10), // Space between the icons
+                Container(
+                  padding: EdgeInsets.all(0), // No padding
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white, // White background inside the circle
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                        width: 2), // Reduced border width
+                  ),
+                  child: IconButton(
+                    iconSize: 25, // Reduced icon size
+                    constraints: BoxConstraints(
+                      minWidth: 25, // Minimum width for the IconButton
+                      minHeight: 25, // Minimum height for the IconButton
+                    ),
+                    icon: Icon(Icons.help_outline,
+                        color: Colors.black), // New icon
+                    onPressed: () {
+                      // Add your onPressed functionality here
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            top: 40,
+            right: 20,
+            child: Container(
+              padding: EdgeInsets.all(0), // No padding
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white, // White background inside the circle
+                border: Border.all(
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                    width: 2), // Reduced border width
+              ),
+              child: IconButton(
+                iconSize: 25, // Reduced icon size
+                constraints: BoxConstraints(
+                  minWidth: 25, // Minimum width for the IconButton
+                  minHeight: 25, // Minimum height for the IconButton
+                ),
+                icon: Icon(Icons.notifications_none_outlined,
+                    color: Colors.black), // Notification icon
+                onPressed: () {
+                  // Add your onPressed functionality here
+                },
+              ),
+            ),
+          )
         ],
       ),
     );
