@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
-
 import 'package:intl/intl.dart';
+import 'package:confetti/confetti.dart';
 
 void main() {
   runApp(MyApp());
@@ -41,6 +41,7 @@ class _InforScreenState extends State<InforScreen>
   late Animation<double> _statsAnimation;
   late AnimationController _recentActivityController;
   late Animation<Offset> _recentActivityAnimation;
+  late ConfettiController _confettiController;
 
   String recentActivityTime = ""; // Variable to store the timestamp
 
@@ -64,6 +65,7 @@ class _InforScreenState extends State<InforScreen>
             showRecentActivity = true;
           });
           _recentActivityController.forward();
+          _confettiController.play(); // Play confetti animation
         }
       });
 
@@ -83,6 +85,9 @@ class _InforScreenState extends State<InforScreen>
       parent: _recentActivityController,
       curve: Curves.easeOut,
     ));
+
+    _confettiController =
+        ConfettiController(duration: const Duration(seconds: 1));
 
     FirebaseFirestore.instance
         .collection('gameData')
@@ -128,71 +133,79 @@ class _InforScreenState extends State<InforScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Stack(
           children: [
-            _buildBackButton(context), // Custom back button
-            /*
-            Divider(
-              height: 30,
-              color: Colors.black,
-              thickness: 1,
-            ),
-            */
-            Center(
-              child: Text(
-                "Your Game",
-                style: TextStyle(
-                  fontFamily: 'lucky',
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 246, 185, 59),
-                ),
-              ),
-            ),
-            SizedBox(height: 30), // Increased space between title and stats box
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.0),
-                child: Column(
-                  mainAxisAlignment:
-                      MainAxisAlignment.start, // Keep alignment to top
-                  children: [
-                    AnimatedBuilder(
-                      animation: _statsAnimation,
-                      builder: (context, child) {
-                        return Transform.translate(
-                          offset: Offset(0, _statsAnimation.value),
-                          child: child,
-                        );
-                      },
-                      child: _buildStatBox(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _buildBackButton(context), // Custom back button
+                Center(
+                  child: Text(
+                    "Your Game",
+                    style: TextStyle(
+                      fontFamily: 'lucky',
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 246, 185, 59),
                     ),
-                    if (showRecentActivity)
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 5), // Minimized space for recent activity
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Recent Activity",
-                              style: TextStyle(
-                                fontFamily: 'lucky',
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 246, 185, 59),
-                              ),
-                            ),
-                            SlideTransition(
-                              position: _recentActivityAnimation,
-                              child: _buildRecentActivity(),
-                            ),
-                          ],
-                        ),
-                      ),
-                  ],
+                  ),
                 ),
+                SizedBox(
+                    height: 30), // Increased space between title and stats box
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Column(
+                      mainAxisAlignment:
+                          MainAxisAlignment.start, // Keep alignment to top
+                      children: [
+                        AnimatedBuilder(
+                          animation: _statsAnimation,
+                          builder: (context, child) {
+                            return Transform.translate(
+                              offset: Offset(0, _statsAnimation.value),
+                              child: child,
+                            );
+                          },
+                          child: _buildStatBox(),
+                        ),
+                        if (showRecentActivity)
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: 5), // Minimized space for recent activity
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Recent Activity",
+                                  style: TextStyle(
+                                    fontFamily: 'lucky',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 246, 185, 59),
+                                  ),
+                                ),
+                                SlideTransition(
+                                  position: _recentActivityAnimation,
+                                  child: _buildRecentActivity(),
+                                ),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: ConfettiWidget(
+                confettiController: _confettiController,
+                blastDirection: -3.14 / 2, // Blast direction: upwards
+                emissionFrequency: 0.05,
+                numberOfParticles: 20,
+                gravity: 0.1,
               ),
             ),
           ],
@@ -418,6 +431,7 @@ class _InforScreenState extends State<InforScreen>
   void dispose() {
     _statsController.dispose();
     _recentActivityController.dispose();
+    _confettiController.dispose();
     super.dispose();
   }
 }
