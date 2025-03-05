@@ -298,13 +298,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        _buildImageWithBorder('assets/images/shoots.png'),
+                        _buildImageWithBorder('assets/images/p1.jpg'),
                         SizedBox(width: 10),
-                        _buildImageWithBorder('assets/images/shoots.png'),
+                        _buildImageWithBorder('assets/images/p4.jpeg'),
                         SizedBox(width: 10),
-                        _buildImageWithBorder('assets/images/shoots.png'),
+                        _buildImageWithBorder('assets/images/p2.jpeg'),
                         SizedBox(width: 10),
-                        _buildImageWithBorder('assets/images/shoots.png'),
+                        _buildImageWithBorder('assets/images/p3.jpeg'),
                       ],
                     ),
 
