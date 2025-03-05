@@ -239,8 +239,8 @@ class _InforScreenState extends State<InforScreen>
             width: 70, // Width of the circle
             height: 70, // Height of the circle
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 255, 255,
-                  255), // Optional: background color for the circle
+              color: const Color.fromARGB(
+                  255, 255, 0, 0), // Optional: background color for the circle
               shape: BoxShape.circle, // Ensures it's circular
               border: Border.all(
                 color: const Color.fromARGB(255, 0, 0, 0), // Border color
@@ -257,7 +257,7 @@ class _InforScreenState extends State<InforScreen>
         Text(
           label,
           style: TextStyle(
-            color: Colors.black54,
+            color: Colors.black,
             fontFamily: 'lucky',
             fontSize: 14,
           ),
@@ -325,7 +325,7 @@ class _InforScreenState extends State<InforScreen>
                   fontFamily: 'lucky',
                   fontSize: 12,
                   fontWeight: FontWeight.w300,
-                  color: Colors.black54,
+                  color: Colors.black,
                 ),
               ),
             ],

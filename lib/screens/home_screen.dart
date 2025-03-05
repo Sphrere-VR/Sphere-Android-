@@ -252,7 +252,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontFamily: 'lucky',
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 246, 185, 59),
+                              color: Color.fromARGB(255, 255, 255, 255),
                             ),
                           ),
                         ),
@@ -272,7 +272,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: EdgeInsets.all(0), // No padding
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.white, // White background inside the circle
+                    color: Colors
+                        .greenAccent, // green background inside the circle
                     border: Border.all(
                         color: const Color.fromARGB(255, 0, 0, 0),
                         width: 2), // Reduced border width
@@ -292,7 +293,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: EdgeInsets.all(0), // No padding
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.white, // White background inside the circle
+                    color: Colors
+                        .greenAccent, // green background inside the circle
                     border: Border.all(
                         color: const Color.fromARGB(255, 0, 0, 0),
                         width: 2), // Reduced border width
@@ -320,7 +322,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.all(0), // No padding
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white, // White background inside the circle
+                color: Colors.greenAccent, // green background inside the circle
                 border: Border.all(
                     color: const Color.fromARGB(255, 0, 0, 0),
                     width: 2), // Reduced border width
