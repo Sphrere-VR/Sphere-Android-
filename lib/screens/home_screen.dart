@@ -97,8 +97,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius:
                                   BorderRadius.circular(20), // Rounded corners
                               border: Border.all(
-                                color: Colors.red, // Red border
-                                width: 3, // Border thickness
+                                color: const Color.fromARGB(
+                                    255, 0, 0, 0), // Red border
+                                width: 2, // Border thickness
                               ),
                             ),
                             child: ClipRRect(
@@ -115,47 +116,78 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 15), // Space between image & text
-                        Text(
-                          'Edwards',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 0, // Adjust the top padding for spacing
+                            bottom:
+                                0, // Add bottom padding to reduce space between texts
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment
+                                .spaceBetween, // Align text to left and icons to right
+                            crossAxisAlignment:
+                                CrossAxisAlignment.center, // Center vertically
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    'PM6', // Updated to PM6
+                                    style: TextStyle(
+                                      fontFamily: 'lucky',
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      width:
+                                          8), // Space between PM6 and @PM6 · Online now
+                                  RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: '@PM6 · ', // Grey text
+                                          style: TextStyle(
+                                            fontFamily: 'lucky',
+                                            fontSize: 14,
+                                            color: Colors.grey[600],
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: 'Online now', // Green text
+                                          style: TextStyle(
+                                            fontFamily: 'lucky',
+                                            fontSize: 14,
+                                            color: Colors.green, // Set to green
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.share),
+                                    onPressed: () {
+                                      // Add share functionality here
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.add),
+                                    onPressed: () {
+                                      // Add add functionality here
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '@edwards · Online now',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                IconButton(
-                                  icon: Icon(Icons.share),
-                                  onPressed: () {
-                                    // Add share functionality here
-                                  },
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.add),
-                                  onPressed: () {
-                                    // Add add functionality here
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10),
+// Space between row and next section
                         Divider(
                           color: const Color.fromARGB(255, 0, 0, 0),
-                          thickness: 2,
+                          thickness: 1,
                         ),
                         // Add more content here
                       ],
