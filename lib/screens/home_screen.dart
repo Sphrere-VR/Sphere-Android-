@@ -59,34 +59,96 @@ class _HomeScreenState extends State<HomeScreen> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      backgroundColor: Colors.transparent, // Ensure full transparency
       builder: (context) {
         return Container(
           width: MediaQuery.of(context).size.width,
-          child: DraggableScrollableSheet(
-            expand: false,
-            initialChildSize: 0.5,
-            minChildSize: 0.25,
-            maxChildSize: 0.75,
-            builder: (context, scrollController) {
-              return SingleChildScrollView(
-                controller: scrollController,
-                child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white, // White background
+            borderRadius:
+                BorderRadius.vertical(top: Radius.circular(20)), // Rounded top
+            border: Border.all(
+              color: const Color.fromARGB(255, 0, 0, 0), // Black border
+              width: 2,
+            ),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            child: DraggableScrollableSheet(
+              expand: false,
+              initialChildSize: 0.5,
+              minChildSize: 0.25,
+              maxChildSize: 0.75,
+              builder: (context, scrollController) {
+                return Container(
+                  color: Colors.white, // Background
                   padding: EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Draggable Scroll Sheet',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Container(
+                            width: 40,
+                            height: 5,
+                            margin: EdgeInsets.only(bottom: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[400], // Drag handle
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.black, width: 2),
+                            ),
+                          ),
                         ),
-                      ),
-                      // Add more content here
-                    ],
+                        // 🖼 Wide Image with Border and Radius
+                        Center(
+                          child: Container(
+                            width:
+                                MediaQuery.of(context).size.width, // Full width
+                            height: 150, // Slight height
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(20), // Rounded corners
+                              border: Border.all(
+                                color: const Color.fromARGB(
+                                    255, 0, 0, 0), // Red border
+                                width: 2, // Border thickness
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                  20), // Ensure border radius for the image
+                              child: Image.asset(
+                                'assets/images/A1-Version.png', // Change to your image path
+                                width: MediaQuery.of(context)
+                                    .size
+                                    .width, // Full width
+                                height: 150, // Slight height
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 15), // Space between image & text
+                        Text(
+                          'Draggable Scroll Sheet',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Divider(
+                          color: const Color.fromARGB(255, 0, 0, 0),
+                          thickness: 2,
+                        ),
+                        // Add more content here
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         );
       },
