@@ -382,8 +382,8 @@ class _InforScreenState extends State<InforScreen>
             Navigator.pop(context);
           },
           child: Container(
-            width: 30, // Circle size
-            height: 30,
+            width: 35, // Circle size
+            height: 35,
             decoration: BoxDecoration(
               color: Colors.greenAccent,
               shape: BoxShape.circle, // Perfect circle
