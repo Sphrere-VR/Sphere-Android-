@@ -90,19 +90,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Center(
                           child: Container(
-                            width: 40,
-                            height: 5,
-                            margin: EdgeInsets.only(bottom: 10),
-                            decoration: BoxDecoration(
-                              color: Colors.grey[400], // Drag handle
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.black, width: 2),
-                            ),
-                          ),
-                        ),
-                        // 🖼 Wide Image with Border and Radius
-                        Center(
-                          child: Container(
                             width:
                                 MediaQuery.of(context).size.width, // Full width
                             height: 150, // Slight height
@@ -110,9 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius:
                                   BorderRadius.circular(20), // Rounded corners
                               border: Border.all(
-                                color: const Color.fromARGB(
-                                    255, 0, 0, 0), // Red border
-                                width: 2, // Border thickness
+                                color: Colors.red, // Red border
+                                width: 3, // Border thickness
                               ),
                             ),
                             child: ClipRRect(
@@ -131,11 +117,40 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         SizedBox(height: 15), // Space between image & text
                         Text(
-                          'Draggable Scroll Sheet',
+                          'Edwards',
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '@edwards · Online now',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.share),
+                                  onPressed: () {
+                                    // Add share functionality here
+                                  },
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.add),
+                                  onPressed: () {
+                                    // Add add functionality here
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                         SizedBox(height: 10),
                         Divider(
