@@ -1,3 +1,11 @@
+/*
+Author: Edward Phiri
+Project: Sphere 
+Date: N/A
+TEch Master Event project
+
+*/
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sphere_app/screens/infor_screen.dart';
