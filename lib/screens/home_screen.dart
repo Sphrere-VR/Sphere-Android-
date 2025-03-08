@@ -3,7 +3,6 @@ Author: Edward Phiri
 Project: Sphere 
 Date: N/A
 
-
 */
 
 import 'package:flutter/material.dart';
@@ -126,9 +125,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: 0, // Adjust the top padding for spacing
+                            top: 10, // Adjust the top padding for spacing
                             bottom:
-                                0, // Add bottom padding to reduce space between texts
+                                10, // Add bottom padding to reduce space between texts
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment
@@ -175,17 +174,44 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Row(
                                 children: [
-                                  IconButton(
-                                    icon: Icon(Icons.share),
-                                    onPressed: () {
-                                      // Add share functionality here
-                                    },
+                                  Container(
+                                    width: 36, // Smaller width
+                                    height: 36, // Smaller height
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                          color: Colors.black, width: 2),
+                                    ),
+                                    child: IconButton(
+                                      icon: Icon(Icons.share,
+                                          size: 18), // Smaller icon
+                                      onPressed: () {
+                                        // Add share functionality here
+                                      },
+                                      padding: EdgeInsets
+                                          .zero, // Remove extra padding
+                                      constraints:
+                                          BoxConstraints(), // Avoid default constraints
+                                    ),
                                   ),
-                                  IconButton(
-                                    icon: Icon(Icons.add),
-                                    onPressed: () {
-                                      // Add add functionality here
-                                    },
+                                  SizedBox(
+                                      width: 8), // Reduce space between icons
+                                  Container(
+                                    width: 36,
+                                    height: 36,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                          color: Colors.black, width: 2),
+                                    ),
+                                    child: IconButton(
+                                      icon: Icon(Icons.add, size: 18),
+                                      onPressed: () {
+                                        // Add add functionality here
+                                      },
+                                      padding: EdgeInsets.zero,
+                                      constraints: BoxConstraints(),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -470,7 +496,9 @@ Widget _buildImageWithBorder(String imagePath) {
     height: 50, // Adjust as needed
     decoration: BoxDecoration(
       shape: BoxShape.circle,
-      border: Border.all(color: Colors.black, width: 2), // Border color & width
+      border: Border.all(
+          color: const Color.fromARGB(255, 0, 0, 0),
+          width: 2), // Border color & width
     ),
     child: ClipOval(
       child: Image.asset(
