@@ -224,13 +224,21 @@ class _HomeScreenState extends State<HomeScreen> {
                           thickness: 1,
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment
+                              .start, // Align all children to the left
                           children: [
                             // Privacy and Security Section
-                            Text(
-                              "Privacy and Security",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 16,
+                                  top: 8,
+                                  bottom: 8), // Add padding for better spacing
+                              child: Text(
+                                "Privacy and Security",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             _buildListTile(
@@ -240,11 +248,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             Divider(),
 
                             // Security Section
-                            Text(
-                              "Security",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 16,
+                                  top: 8,
+                                  bottom: 8), // Add padding for better spacing
+                              child: Text(
+                                "Security",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             _buildListTile(Icons.security, "Security", context),
@@ -255,11 +269,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             Divider(),
 
                             // Support Section
-                            Text(
-                              "Support",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 16,
+                                  top: 8,
+                                  bottom: 8), // Add padding for better spacing
+                              child: Text(
+                                "Support",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             _buildListTile(Icons.help_outline, "FAQ", context),
