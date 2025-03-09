@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HeadsetsScreen extends StatelessWidget {
-  final List<Map<String, String>> newsItems = [
+  final List<Map<String, String>> heaseItems = [
     {
       'title': 'Was passiert mit dem Bitcoin?',
       'date': '21.05.2024',
@@ -59,9 +59,9 @@ class HeadsetsScreen extends StatelessWidget {
         title: Text('News Feed'),
       ),
       body: ListView.builder(
-        itemCount: newsItems.length,
+        itemCount: heaseItems.length,
         itemBuilder: (context, index) {
-          final news = newsItems[index];
+          final news = heaseItems[index];
           final String? status = news['status'];
           final Color statusColor =
               (status == 'Active') ? Colors.green : Colors.grey;
