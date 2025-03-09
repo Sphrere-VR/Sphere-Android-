@@ -223,25 +223,56 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: const Color.fromARGB(255, 0, 0, 0),
                           thickness: 1,
                         ),
-                        _buildListTile(
-                            Icons.visibility_off, "Hide apps", context),
-                        _buildListTile(Icons.backup, "Backup", context),
-                        _buildListTile(Icons.language, "Language", context),
-                        Divider(),
-                        _buildListTile(Icons.security, "Security", context),
-                        _buildListTile(
-                            Icons.notifications, "Notification", context),
-                        _buildListTile(
-                            Icons.person_add, "Invite friends", context),
-                        Divider(),
-                        _buildListTile(Icons.help_outline, "FAQ", context),
-                        _buildListTile(Icons.info_outline, "About Us", context),
-                        _buildListTile(Icons.star_border, "Rate Us", context),
-                        _buildListTile(
-                            Icons.privacy_tip, "Privacy Policy", context,
-                            showDraggable: true),
-                        _buildListTile(Icons.logout, "Logout", context),
-                        // Add more content here
+                        Column(
+                          children: [
+                            // Privacy and Security Section
+                            Text(
+                              "Privacy and Security",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            _buildListTile(
+                                Icons.visibility_off, "Hide apps", context),
+                            _buildListTile(Icons.backup, "Backup", context),
+                            _buildListTile(Icons.language, "Language", context),
+                            Divider(),
+
+                            // Security Section
+                            Text(
+                              "Security",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            _buildListTile(Icons.security, "Security", context),
+                            _buildListTile(
+                                Icons.notifications, "Notification", context),
+                            _buildListTile(
+                                Icons.person_add, "Invite friends", context),
+                            Divider(),
+
+                            // Support Section
+                            Text(
+                              "Support",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            _buildListTile(Icons.help_outline, "FAQ", context),
+                            _buildListTile(
+                                Icons.info_outline, "About Us", context),
+                            _buildListTile(
+                                Icons.star_border, "Rate Us", context),
+                            _buildListTile(
+                                Icons.privacy_tip, "Privacy Policy", context,
+                                showDraggable: true),
+                            _buildListTile(Icons.logout, "Logout", context),
+                          ],
+                        ) // Add more content here
                       ],
                     ),
                   ),
