@@ -35,10 +35,10 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
       'image': 'assets/images/R4.webp',
     },
     {
-      'title': 'SPAC: Eine Analyse des Booms',
+      'title': 'TME-edu Board Wifi',
       'date': '21.05.2024',
       'duration': '1m 30sec',
-      'image': 'assets/images/Update_1.png',
+      'image': 'assets/images/tme_edu_board.webp',
     },
     {
       'title': 'Ripple siegt vor Gericht',
@@ -55,7 +55,6 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
     {
       'title': 'Dow Jones/Russell 2000',
       'date': '21.05.2024',
-      'status': 'Active',
       'duration': '1m 30sec',
       'image': 'assets/images/Update_1.png',
     },
