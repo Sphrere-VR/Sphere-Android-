@@ -406,7 +406,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      "Join millions of players worldwide to win a race and compete in Mario Kart races.",
+                      "Join millions of Creator worldwide and build in Arduino World Sphere.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'lucky',
