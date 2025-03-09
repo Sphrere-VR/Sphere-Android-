@@ -14,7 +14,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HeadsetsScreen extends StatelessWidget {
+class HeadsetsScreen extends StatefulWidget {
+  @override
+  _HeadsetsScreenState createState() => _HeadsetsScreenState();
+}
+
+class _HeadsetsScreenState extends State<HeadsetsScreen> {
   final List<Map<String, String>> heaseItems = [
     {
       'title': 'Arduino Nano-ESP32',
@@ -30,7 +35,7 @@ class HeadsetsScreen extends StatelessWidget {
       'image': 'assets/images/R4.webp',
     },
     {
-      'title': 'SPAC: Eine Analyse des Booms',
+      'title': 'TME edu Board Wifi',
       'date': '21.05.2024',
       'duration': '1m 30sec',
       'image': 'assets/images/Update_1.png',
@@ -56,40 +61,89 @@ class HeadsetsScreen extends StatelessWidget {
     },
   ];
 
+  String selectedImage = 'assets/images/Update_1.png';
+  String selectedTitle = 'Arduino Nano-ESP32';
+  String selectedDuration = '1m 30sec';
+  String selectedStatus = 'Active';
+
+  void updateSelection(Map<String, String> item) {
+    setState(() {
+      selectedImage = item['image']!;
+      selectedTitle = item['title']!;
+      selectedDuration = item['duration']!;
+      selectedStatus =
+          item.containsKey('status') ? item['status']! : 'Disconnected';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          // Top Image with Slight Downward Shift
           Padding(
-            padding: EdgeInsets.only(top: 70), // Moves image slightly down
-            child: Container(
-              width: 300, // Fixed width
-              height: 150, // Fixed height
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20), // Rounded corners
-                border: Border.all(
-                  color: Colors.black, // Black border
-                  width: 2, // Border thickness
-                ),
-              ),
-              child: ClipRRect(
-                borderRadius:
-                    BorderRadius.circular(18), // Ensures image is inside
-                child: Image.asset(
-                  'assets/images/Update_1.png', // Ensure this image exists in assets
+            padding: EdgeInsets.only(top: 70),
+            child: Column(
+              children: [
+                Container(
                   width: 300,
-                  height: 150,
-                  fit: BoxFit.cover,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.black, width: 2),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(18),
+                    child: Image.asset(
+                      selectedImage,
+                      width: 300,
+                      height: 200,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          selectedTitle,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          'Duration: $selectedDuration',
+                          style:
+                              TextStyle(fontSize: 16, color: Colors.grey[700]),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      'Status: $selectedStatus',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: selectedStatus == 'Active'
+                            ? Colors.green
+                            : Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-
-          SizedBox(height: 10), // Adds space before list
-
-          // Scrollable News List
+          SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
               itemCount: heaseItems.length,
@@ -98,8 +152,8 @@ class HeadsetsScreen extends StatelessWidget {
                 final String? status = news['status'];
                 final Color statusColor =
                     (status == 'Active') ? Colors.green : Colors.grey;
-
                 return ListTile(
+                  onTap: () => updateSelection(news),
                   leading: Container(
                     width: 60,
                     height: 60,
@@ -108,16 +162,22 @@ class HeadsetsScreen extends StatelessWidget {
                       border: Border.all(color: Colors.black, width: 2),
                       image: DecorationImage(
                         image: AssetImage(news['image']!),
-                        fit: BoxFit.cover, // Ensures the image is inside
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                  title: Text(news['title']!),
-                  subtitle: Text('${news['date']} \u2022 ${news['duration']}'),
+                  title: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(news['title']!),
+                  ),
+                  subtitle: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('${news['date']} • ${news['duration']}'),
+                  ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      if (status != null) // Show status only if it exists
+                      if (status != null)
                         Container(
                           padding:
                               EdgeInsets.symmetric(horizontal: 8, vertical: 4),
