@@ -25,7 +25,7 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
       'title': 'Arduino Nano-ESP32',
       'date': '21.05.2024',
       'duration': '1m 30sec',
-      'status': 'Active',
+      'status': 'Online',
       'image': 'assets/images/Update_1.png',
     },
     {
@@ -35,7 +35,7 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
       'image': 'assets/images/R4.webp',
     },
     {
-      'title': 'TME-edu Board Wifi',
+      'title': 'TME-edu Wifi Board',
       'date': '21.05.2024',
       'duration': '1m 30sec',
       'image': 'assets/images/tme_edu_board.webp',
@@ -55,6 +55,7 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
     {
       'title': 'Dow Jones/Russell 2000',
       'date': '21.05.2024',
+      'status': 'Online',
       'duration': '1m 30sec',
       'image': 'assets/images/Update_1.png',
     },
@@ -63,15 +64,14 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
   String selectedImage = 'assets/images/Update_1.png';
   String selectedTitle = 'Arduino Nano-ESP32';
   String selectedDuration = '1m 30sec';
-  String selectedStatus = 'Active';
+  String selectedStatus = 'Online';
 
   void updateSelection(Map<String, String> item) {
     setState(() {
       selectedImage = item['image']!;
       selectedTitle = item['title']!;
       selectedDuration = item['duration']!;
-      selectedStatus =
-          item.containsKey('status') ? item['status']! : 'Disconnected';
+      selectedStatus = item.containsKey('status') ? item['status']! : 'Pair';
     });
   }
 
@@ -125,21 +125,26 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                                 horizontal: 6, vertical: 3),
                             decoration: BoxDecoration(
                               border: Border.all(
-                                  color: selectedStatus == 'Active'
+                                  color: selectedStatus == 'Online'
                                       ? Colors.green
                                       : Colors.red,
                                   width: 2),
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: Text(
-                              '$selectedStatus',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: selectedStatus == 'Active'
-                                    ? Colors.green
-                                    : Colors.red,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  '$selectedStatus',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: selectedStatus == 'Online'
+                                        ? Colors.green
+                                        : Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -168,7 +173,7 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                 final news = heaseItems[index];
                 final String? status = news['status'];
                 final Color statusColor =
-                    (status == 'Active') ? Colors.green : Colors.grey;
+                    (status == 'Online') ? Colors.green : Colors.grey;
                 return ListTile(
                   onTap: () => updateSelection(news),
                   leading: Container(
