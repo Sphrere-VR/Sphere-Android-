@@ -295,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 showDraggable: true),
                             _buildListTile(Icons.logout, "Logout", context),
                           ],
-                        ) // Add more content here
+                        ),
                       ],
                     ),
                   ),
@@ -617,6 +617,10 @@ class _HomeScreenState extends State<HomeScreen> {
             Text(title,
                 style: TextStyle(
                     fontFamily: 'lucky', fontSize: 13)), // Smaller font size
+            Spacer(), // Push the ">" symbol to the end
+            Icon(Icons.chevron_right, // ">" symbol
+                color: const Color.fromARGB(255, 0, 0, 0),
+                size: 18),
           ],
         ),
       ),
