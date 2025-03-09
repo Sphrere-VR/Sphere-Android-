@@ -55,9 +55,6 @@ class HeadsetsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('News Feed'),
-      ),
       body: ListView.builder(
         itemCount: heaseItems.length,
         itemBuilder: (context, index) {
