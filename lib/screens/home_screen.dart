@@ -218,11 +218,29 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                         ),
-// Space between row and next section
+                        // Space between row and next section
                         Divider(
                           color: const Color.fromARGB(255, 0, 0, 0),
                           thickness: 1,
                         ),
+                        _buildListTile(
+                            Icons.visibility_off, "Hide apps", context),
+                        _buildListTile(Icons.backup, "Backup", context),
+                        _buildListTile(Icons.language, "Language", context),
+                        Divider(),
+                        _buildListTile(Icons.security, "Security", context),
+                        _buildListTile(
+                            Icons.notifications, "Notification", context),
+                        _buildListTile(
+                            Icons.person_add, "Invite friends", context),
+                        Divider(),
+                        _buildListTile(Icons.help_outline, "FAQ", context),
+                        _buildListTile(Icons.info_outline, "About Us", context),
+                        _buildListTile(Icons.star_border, "Rate Us", context),
+                        _buildListTile(
+                            Icons.privacy_tip, "Privacy Policy", context,
+                            showDraggable: true),
+                        _buildListTile(Icons.logout, "Logout", context),
                         // Add more content here
                       ],
                     ),
@@ -232,6 +250,23 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         );
+      },
+    );
+  }
+
+  Widget _buildListTileWithDraggable(
+      IconData icon, String title, BuildContext context,
+      {bool showDraggable = false}) {
+    return ListTile(
+      dense: true, // Reduces the overall height
+      contentPadding: EdgeInsets.symmetric(
+          vertical: -1.0, horizontal: 8.0), // Adjust padding
+      leading: Icon(icon, size: 20), // Reduce icon size if needed
+      title: Text(title, style: TextStyle(fontSize: 14)), // Adjust font size
+      onTap: () {
+        if (showDraggable) {
+          _showDraggableSheet(context);
+        }
       },
     );
   }
@@ -488,25 +523,41 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
 
-Widget _buildImageWithBorder(String imagePath) {
-  return Container(
-    width: 50, // Adjust as needed
-    height: 50, // Adjust as needed
-    decoration: BoxDecoration(
-      shape: BoxShape.circle,
-      border: Border.all(
-          color: const Color.fromARGB(255, 0, 0, 0),
-          width: 2), // Border color & width
-    ),
-    child: ClipOval(
-      child: Image.asset(
-        imagePath,
-        width: 40, // Adjust image size within the border
-        height: 40,
-        fit: BoxFit.cover, // Ensures the image fits well
+  Widget _buildListTile(IconData icon, String title, BuildContext context,
+      {bool showDraggable = false}) {
+    return ListTile(
+      contentPadding:
+          EdgeInsets.symmetric(vertical: 4.0), // Reduce vertical padding
+      leading: Icon(icon),
+      title: Text(title),
+      onTap: () {
+        if (showDraggable) {
+          _showDraggableSheet(context);
+        }
+        // Add specific actions here
+      },
+    );
+  }
+
+  Widget _buildImageWithBorder(String imagePath) {
+    return Container(
+      width: 50, // Adjust as needed
+      height: 50, // Adjust as needed
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+            color: const Color.fromARGB(255, 0, 0, 0),
+            width: 2), // Border color & width
       ),
-    ),
-  );
+      child: ClipOval(
+        child: Image.asset(
+          imagePath,
+          width: 40, // Adjust image size within the border
+          height: 40,
+          fit: BoxFit.cover, // Ensures the image fits well
+        ),
+      ),
+    );
+  }
 }
