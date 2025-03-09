@@ -35,7 +35,7 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
       'image': 'assets/images/R4.webp',
     },
     {
-      'title': 'TME edu Board Wifi',
+      'title': 'SPAC: Eine Analyse des Booms',
       'date': '21.05.2024',
       'duration': '1m 30sec',
       'image': 'assets/images/Update_1.png',
@@ -103,41 +103,59 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                   ),
                 ),
                 SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          selectedTitle,
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'Duration: $selectedDuration',
-                          style:
-                              TextStyle(fontSize: 16, color: Colors.grey[700]),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      'Status: $selectedStatus',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: selectedStatus == 'Active'
-                            ? Colors.green
-                            : Colors.red,
-                        fontWeight: FontWeight.bold,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            selectedTitle,
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'Duration: $selectedDuration',
+                            style: TextStyle(
+                                fontSize: 16, color: Colors.grey[700]),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 6, vertical: 3),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: selectedStatus == 'Active'
+                                      ? Colors.green
+                                      : Colors.red,
+                                  width: 2),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              '$selectedStatus',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: selectedStatus == 'Active'
+                                    ? Colors.green
+                                    : Colors.red,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 2),
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          icon: Icon(Icons.add, size: 20),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -180,14 +198,15 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                       if (status != null)
                         Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                           decoration: BoxDecoration(
                             color: statusColor,
+                            border: Border.all(color: Colors.black, width: 2),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
                             status,
-                            style: TextStyle(color: Colors.white, fontSize: 12),
+                            style: TextStyle(color: Colors.white, fontSize: 10),
                           ),
                         ),
                       SizedBox(width: 8),
