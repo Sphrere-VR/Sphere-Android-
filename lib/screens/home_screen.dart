@@ -7,6 +7,7 @@ Date: N/A
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sphere_app/screens/headsets_screen.dart';
 import 'package:sphere_app/screens/infor_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -207,7 +208,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: IconButton(
                                       icon: Icon(Icons.add, size: 18),
                                       onPressed: () {
-                                        // Add add functionality here
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HeadsetsScreen()),
+                                        );
                                       },
                                       padding: EdgeInsets.zero,
                                       constraints: BoxConstraints(),
@@ -396,7 +402,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Text(
-                      "Save the Galaxy!",
+                      "Build and Play",
                       style: TextStyle(
                         fontFamily: 'lucky',
                         fontSize: 30,
@@ -406,7 +412,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      "Join millions of Creator worldwide and build in Arduino World Sphere.",
+                      "Join millions of Creators worldwide and build in Arduino World Sphere.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'lucky',
