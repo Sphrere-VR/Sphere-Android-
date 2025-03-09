@@ -609,7 +609,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               padding: EdgeInsets.all(4), // Padding inside the border
-              child: Icon(icon, size: 18), // Smaller icon
+              child: Icon(icon,
+                  color: const Color.fromARGB(255, 0, 0, 0),
+                  size: 18), // Smaller icon
             ),
             SizedBox(width: 8), // Spacing between icon and text
             Text(title,
