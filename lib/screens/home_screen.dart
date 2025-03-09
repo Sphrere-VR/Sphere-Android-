@@ -236,6 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Text(
                                 "Privacy and Security",
                                 style: TextStyle(
+                                  fontFamily: 'lucky',
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -256,6 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Text(
                                 "Security",
                                 style: TextStyle(
+                                  fontFamily: 'lucky',
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -277,6 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Text(
                                 "Support",
                                 style: TextStyle(
+                                  fontFamily: 'lucky',
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -321,7 +324,9 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Icon(icon, size: 18), // Smaller icon
             SizedBox(width: 4), // Reduced spacing (from 8 to 4)
-            Text(title, style: TextStyle(fontSize: 13)), // Reduce font size
+            Text(title,
+                style: TextStyle(
+                    fontFamily: 'lucky', fontSize: 13)), // Reduce font size
           ],
         ),
       ),
@@ -607,7 +612,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Icon(icon, size: 18), // Smaller icon
             ),
             SizedBox(width: 8), // Spacing between icon and text
-            Text(title, style: TextStyle(fontSize: 13)), // Smaller font size
+            Text(title,
+                style: TextStyle(
+                    fontFamily: 'lucky', fontSize: 13)), // Smaller font size
           ],
         ),
       ),
