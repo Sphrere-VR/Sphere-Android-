@@ -257,17 +257,23 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildListTileWithDraggable(
       IconData icon, String title, BuildContext context,
       {bool showDraggable = false}) {
-    return ListTile(
-      dense: true, // Reduces the overall height
-      contentPadding: EdgeInsets.symmetric(
-          vertical: -1.0, horizontal: 8.0), // Adjust padding
-      leading: Icon(icon, size: 20), // Reduce icon size if needed
-      title: Text(title, style: TextStyle(fontSize: 14)), // Adjust font size
-      onTap: () {
-        if (showDraggable) {
-          _showDraggableSheet(context);
-        }
-      },
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 1), // Reduce space between items
+      child: InkWell(
+        onTap: () {
+          if (showDraggable) {
+            _showDraggableSheet(context);
+          }
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center, // Align items tightly
+          children: [
+            Icon(icon, size: 18), // Smaller icon
+            SizedBox(width: 4), // Reduced spacing (from 8 to 4)
+            Text(title, style: TextStyle(fontSize: 13)), // Reduce font size
+          ],
+        ),
+      ),
     );
   }
 
@@ -526,17 +532,34 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildListTile(IconData icon, String title, BuildContext context,
       {bool showDraggable = false}) {
-    return ListTile(
-      contentPadding:
-          EdgeInsets.symmetric(vertical: 4.0), // Reduce vertical padding
-      leading: Icon(icon),
-      title: Text(title),
-      onTap: () {
-        if (showDraggable) {
-          _showDraggableSheet(context);
-        }
-        // Add specific actions here
-      },
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 4), // Minimal vertical padding
+      child: InkWell(
+        onTap: () {
+          if (showDraggable) {
+            _showDraggableSheet(context);
+          }
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center, // Align items tightly
+          children: [
+            // Add a circular border around the icon
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle, // Circular shape
+                border: Border.all(
+                  color: const Color.fromARGB(255, 0, 0, 0), // Border color
+                  width: 2, // Border width
+                ),
+              ),
+              padding: EdgeInsets.all(4), // Padding inside the border
+              child: Icon(icon, size: 18), // Smaller icon
+            ),
+            SizedBox(width: 8), // Spacing between icon and text
+            Text(title, style: TextStyle(fontSize: 13)), // Smaller font size
+          ],
+        ),
+      ),
     );
   }
 
