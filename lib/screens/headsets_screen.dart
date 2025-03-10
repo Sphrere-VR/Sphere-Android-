@@ -199,7 +199,7 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                       news['title']!,
                       style: TextStyle(
                         fontFamily: 'lucky',
-                        fontSize: 20, // Adjust as needed
+                        fontSize: 16, // Adjust as needed
                         fontWeight: FontWeight.bold,
                         color: Colors.black, // Adjust color if needed
                       ),
@@ -211,7 +211,7 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                       '${news['date']} • ${news['duration']}',
                       style: TextStyle(
                         fontFamily: 'lucky',
-                        fontSize: 16, // Slightly smaller for subtitle
+                        fontSize: 12, // Slightly smaller for subtitle
                         fontWeight: FontWeight.w500,
                         color: Colors.grey[700], // Softer color for subtitle
                       ),
