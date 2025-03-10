@@ -113,12 +113,16 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                           Text(
                             selectedTitle,
                             style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                                fontFamily: 'lucky',
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
                           ),
                           Text(
                             'Duration: $selectedDuration',
                             style: TextStyle(
-                                fontSize: 16, color: Colors.grey[700]),
+                                fontFamily: 'lucky',
+                                fontSize: 16,
+                                color: Colors.grey[700]),
                           ),
                           Container(
                             padding: EdgeInsets.symmetric(
@@ -137,6 +141,7 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                                 Text(
                                   '$selectedStatus',
                                   style: TextStyle(
+                                    fontFamily: 'lucky',
                                     fontSize: 14,
                                     color: selectedStatus == 'Online'
                                         ? Colors.green
@@ -190,11 +195,27 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                   ),
                   title: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(news['title']!),
+                    child: Text(
+                      news['title']!,
+                      style: TextStyle(
+                        fontFamily: 'lucky',
+                        fontSize: 20, // Adjust as needed
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black, // Adjust color if needed
+                      ),
+                    ),
                   ),
                   subtitle: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text('${news['date']} • ${news['duration']}'),
+                    child: Text(
+                      '${news['date']} • ${news['duration']}',
+                      style: TextStyle(
+                        fontFamily: 'lucky',
+                        fontSize: 16, // Slightly smaller for subtitle
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey[700], // Softer color for subtitle
+                      ),
+                    ),
                   ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -210,7 +231,10 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                           ),
                           child: Text(
                             status,
-                            style: TextStyle(color: Colors.white, fontSize: 10),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'lucky',
+                                fontSize: 10),
                           ),
                         ),
                       SizedBox(width: 8),
