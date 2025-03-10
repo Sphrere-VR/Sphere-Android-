@@ -37,7 +37,7 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
     {
       'title': 'TME-edu Wifi Board',
       'date': '21.05.2024',
-      'duration': '1m 30sec',
+      'duration': '12m 30sec',
       'image': 'assets/images/tme_edu_board.webp',
     },
     {
