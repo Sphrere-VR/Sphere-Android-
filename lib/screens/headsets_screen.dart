@@ -308,7 +308,7 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
           Expanded(
             child: ListView(
               children: [
-                _buildSectionHeader('Boards'),
+                _buildSectionHeader('Microcontroller '),
                 ListView.builder(
                   shrinkWrap: true,
                   physics:
