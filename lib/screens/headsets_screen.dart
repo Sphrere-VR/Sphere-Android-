@@ -112,6 +112,7 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
       child: Text(
         title,
         style: TextStyle(
+          fontFamily: 'lucky', // Apply the lucky font family
           fontSize: 20,
           fontWeight: FontWeight.bold,
           color: Colors.black,
@@ -308,7 +309,7 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
           Expanded(
             child: ListView(
               children: [
-                _buildSectionHeader('Microcontroller '),
+                _buildSectionHeader('Microcontroller'), // Boards section
                 ListView.builder(
                   shrinkWrap: true,
                   physics:
@@ -319,7 +320,7 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                     return _buildListItem(board);
                   },
                 ),
-                _buildSectionHeader('Bluetooth'),
+                _buildSectionHeader('Bluetooth'), // Bluetooth section
                 ListView.builder(
                   shrinkWrap: true,
                   physics:
