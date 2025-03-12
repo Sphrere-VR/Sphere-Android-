@@ -154,15 +154,36 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                           ),
                         ],
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black, width: 2),
-                          shape: BoxShape.circle,
-                        ),
-                        child: IconButton(
-                          icon: Icon(Icons.add, size: 20),
-                          onPressed: () {},
-                        ),
+                      Row(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black, width: 2),
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                              icon: Icon(Icons.play_arrow, size: 20),
+                              onPressed: () {
+                                // Add your play functionality here
+                                print('Play button pressed');
+                              },
+                            ),
+                          ),
+                          SizedBox(width: 8), // Add some spacing between icons
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black, width: 2),
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                              icon: Icon(Icons.add, size: 20),
+                              onPressed: () {
+                                // Add your add functionality here
+                                print('Add button pressed');
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
