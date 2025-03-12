@@ -109,14 +109,36 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
   Widget _buildSectionHeader(String title) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-      child: Text(
-        title,
-        style: TextStyle(
-          fontFamily: 'lucky', // Apply the lucky font family
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontFamily: 'lucky', // Apply the lucky font family
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          Container(
+            width: 30, // Smaller container width
+            height: 30, // Smaller container height
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border:
+                  Border.all(color: Colors.black, width: 2), // Circular border
+            ),
+            child: IconButton(
+              icon: Icon(Icons.add, size: 16), // Smaller icon size
+              padding: EdgeInsets.zero, // Remove padding around the icon
+              onPressed: () {
+                // Add functionality here
+                print('Add button pressed for $title');
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
