@@ -65,6 +65,7 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
   String selectedTitle = 'Arduino Nano-ESP32';
   String selectedDuration = '1m 30sec';
   String selectedStatus = 'Online';
+  bool isSelectedOnline = true; // Track if the selected item is online
 
   void updateSelection(Map<String, String> item) {
     setState(() {
@@ -72,6 +73,7 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
       selectedTitle = item['title']!;
       selectedDuration = item['duration']!;
       selectedStatus = item.containsKey('status') ? item['status']! : 'Pair';
+      isSelectedOnline = selectedStatus == 'Online'; // Update the online status
     });
   }
 
@@ -158,18 +160,27 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black, width: 2),
+                              border: Border.all(
+                                color: isSelectedOnline
+                                    ? Colors.green
+                                    : Colors.red, // Border color changes
+                                width: 2,
+                              ),
                               shape: BoxShape.circle,
                             ),
                             child: IconButton(
                               icon: Icon(Icons.play_arrow, size: 20),
                               onPressed: () {
-                                // Add your play functionality here
-                                print('Play button pressed');
+                                if (isSelectedOnline) {
+                                  // Only allow play if the item is online
+                                  print('Play button pressed');
+                                } else {
+                                  print('Cannot play: Item is not online');
+                                }
                               },
                             ),
                           ),
-                          SizedBox(width: 8), // Add some spacing between icons
+                          SizedBox(width: 8),
                           Container(
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.black, width: 2),
@@ -178,7 +189,6 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                             child: IconButton(
                               icon: Icon(Icons.add, size: 20),
                               onPressed: () {
-                                // Add your add functionality here
                                 print('Add button pressed');
                               },
                             ),
@@ -220,9 +230,9 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                       news['title']!,
                       style: TextStyle(
                         fontFamily: 'lucky',
-                        fontSize: 16, // Adjust as needed
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black, // Adjust color if needed
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -232,9 +242,9 @@ class _HeadsetsScreenState extends State<HeadsetsScreen> {
                       '${news['date']} • ${news['duration']}',
                       style: TextStyle(
                         fontFamily: 'lucky',
-                        fontSize: 12, // Slightly smaller for subtitle
+                        fontSize: 12,
                         fontWeight: FontWeight.w500,
-                        color: Colors.grey[700], // Softer color for subtitle
+                        color: Colors.grey[700],
                       ),
                     ),
                   ),
