@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 
 class PlayScreen extends StatelessWidget {
   final String image;
@@ -71,29 +71,39 @@ class PlayScreen extends StatelessWidget {
                 ),
 
                 // Image inside a properly sized circular border
-                Column(
-                  children: [
-                    Container(
-                      width: 50, // Matches image size
+                Container(
+                  width: 50, // Matches image size
+                  height: 50,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                        width: 2), // Smaller border
+                  ),
+                  child: ClipOval(
+                    child: Image.asset(
+                      image,
+                      width: 50,
                       height: 50,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 0, 0, 0),
-                            width: 2), // Smaller border
-                      ),
-                      child: ClipOval(
-                        child: Image.asset(
-                          image,
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover, // Ensures full image fits inside
-                        ),
-                      ),
+                      fit: BoxFit.cover, // Ensures full image fits inside
                     ),
-                  ],
+                  ),
                 ),
               ],
+            ),
+
+            // const SizedBox(height: 20), // Spacing between the Row and the image
+
+            // Large Image Container
+            Container(
+              height: double.infinity,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/TME_Edu_Rav2.png'),
+                  fit: BoxFit.contain,
+                ),
+              ),
             ),
           ],
         ),
