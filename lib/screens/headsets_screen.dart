@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sphere_app/screens/connected_devices.dart';
 
 void main() {
   runApp(MyApp());
@@ -406,80 +407,6 @@ class BoardDetailsPopup extends StatelessWidget {
           child: Text('Close'),
         ),
       ],
-    );
-  }
-}
-
-class PlayScreen extends StatelessWidget {
-  final String image;
-  final String title;
-  final String duration;
-  final String status;
-
-  PlayScreen({
-    required this.image,
-    required this.title,
-    required this.duration,
-    required this.status,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Play Screen'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              image,
-              width: 150,
-              height: 150,
-              fit: BoxFit.contain,
-            ),
-            SizedBox(height: 20),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Duration: $duration',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.grey[700],
-              ),
-            ),
-            SizedBox(height: 10),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: status == 'Online' ? Colors.green : Colors.red,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                status,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
-            Icon(
-              Icons.play_arrow,
-              size: 100,
-              color: Colors.green,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
