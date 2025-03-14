@@ -80,17 +80,6 @@ class PlayScreen extends StatelessWidget {
                 ),
               ],
             ),
-
-            const Spacer(), // Pushes the play button down
-
-            // Play Icon (Centered)
-            const Center(
-              child: Icon(
-                Icons.play_arrow,
-                size: 60,
-                color: Colors.green,
-              ),
-            ),
           ],
         ),
       ),
