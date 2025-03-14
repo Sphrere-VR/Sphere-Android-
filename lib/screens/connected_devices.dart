@@ -18,8 +18,7 @@ class PlayScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: 16, vertical: 40), // Adjust top padding
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -71,12 +70,28 @@ class PlayScreen extends StatelessWidget {
                   ],
                 ),
 
-                // Image on the Right
-                Image.asset(
-                  image,
-                  width: 80, // Adjusted size
-                  height: 80,
-                  fit: BoxFit.contain,
+                // Image inside a properly sized circular border
+                Column(
+                  children: [
+                    Container(
+                      width: 50, // Matches image size
+                      height: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 0, 0, 0),
+                            width: 2), // Smaller border
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          image,
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.cover, // Ensures full image fits inside
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
