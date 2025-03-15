@@ -126,6 +126,18 @@ class PlayScreen extends StatelessWidget {
                   left: 52,
                   child: _buildRedDot(),
                 ),
+                // Red dot positioned at RGB2 image
+                Positioned(
+                  top: 290,
+                  left: 52,
+                  child: _buildRedDot(),
+                ),
+                // Red dot positioned at OLED image
+                Positioned(
+                  top: 290,
+                  left: 123,
+                  child: _buildRedDot(),
+                ),
                 Positioned(
                   top: 300,
                   right: 53,
