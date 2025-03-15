@@ -148,10 +148,16 @@ class PlayScreen extends StatelessWidget {
                   right: 72,
                   child: _buildRedDot(),
                 ),
-// Red dot positioned to the right SW on the image
+                // Red dot positioned to the mid SW on the image
                 Positioned(
                   top: 247,
-                  right: 72,
+                  right: 103,
+                  child: _buildRedDot(),
+                ),
+                // Red dot positioned to the left SW on the image
+                Positioned(
+                  top: 247,
+                  right: 133,
                   child: _buildRedDot(),
                 ),
               ],
