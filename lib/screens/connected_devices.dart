@@ -22,11 +22,9 @@ class PlayScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Row with Title, Duration, Status on the Left and Image on the Right
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Title, Duration, and Status (Left Side)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -69,44 +67,77 @@ class PlayScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-
-                // Image inside a properly sized circular border
                 Container(
-                  width: 50, // Matches image size
+                  width: 50,
                   height: 50,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                        color: const Color.fromARGB(255, 0, 0, 0),
-                        width: 2), // Smaller border
+                        color: const Color.fromARGB(255, 0, 0, 0), width: 2),
                   ),
                   child: ClipOval(
                     child: Image.asset(
                       image,
                       width: 50,
                       height: 50,
-                      fit: BoxFit.cover, // Ensures full image fits inside
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 20),
 
-            // const SizedBox(height: 20), // Spacing between the Row and the image
-
-            // Large Image Container
-            Container(
-              height: double.infinity,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/TME_Edu_Rav2.png'),
-                  fit: BoxFit.contain,
+            // Image with red dots overlay
+            Stack(
+              children: [
+                Container(
+                  height: 400,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/TME_Edu_Rav2.png'),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ),
-              ),
+
+                // Red dots positioned at specific locations
+                Positioned(
+                  top: 130,
+                  left: 60,
+                  child: _buildRedDot(),
+                ),
+                Positioned(
+                  top: 120,
+                  left: 200,
+                  child: _buildRedDot(),
+                ),
+                Positioned(
+                  top: 250,
+                  left: 150,
+                  child: _buildRedDot(),
+                ),
+                Positioned(
+                  top: 300,
+                  right: 50,
+                  child: _buildRedDot(),
+                ),
+              ],
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildRedDot() {
+    return Container(
+      width: 10,
+      height: 10,
+      decoration: BoxDecoration(
+        color: Colors.red,
+        shape: BoxShape.circle,
       ),
     );
   }
