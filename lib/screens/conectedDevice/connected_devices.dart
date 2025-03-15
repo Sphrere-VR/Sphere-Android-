@@ -1,5 +1,81 @@
 import 'package:flutter/material.dart';
 
+// Data model for components
+class Component {
+  final String title;
+  final String image;
+  final String description;
+
+  Component({
+    required this.title,
+    required this.image,
+    required this.description,
+  });
+}
+
+// Map of components with their details
+final Map<String, Component> components = {
+  'Arduino MCU Board': Component(
+    title: 'Arduino MCU Board',
+    image: 'assets/images/R4.webp',
+    description:
+        'The Arduino MCU Board is the main microcontroller unit that controls all the components on the TME education Board.',
+  ),
+  'LCD Display': Component(
+    title: 'LCD Display',
+    image: 'assets/images/LCD.png',
+    description:
+        'The LCD Display is used to show text and information to the user.',
+  ),
+  'LED1': Component(
+    title: 'LED1',
+    image: 'assets/images/LED.png',
+    description: 'LED1 is a light-emitting diode used for visual indicators.',
+  ),
+  'RGB2': Component(
+    title: 'RGB2',
+    image: 'assets/images/RGB.png',
+    description:
+        'RGB2 is a multi-color LED that can display a range of colors.',
+  ),
+  'OLED': Component(
+    title: 'OLED',
+    image: 'assets/images/OLED.png',
+    description:
+        'The OLED display is a high-resolution screen for detailed graphics.',
+  ),
+  'Right SW': Component(
+    title: 'Right SW',
+    image: 'assets/images/SW1.png',
+    description:
+        'Push Button Switch is widely used as a standard input button on electronic projects. These work best when you mount it on PCB but can also be used on a solderless breadboard for temporary connections in prototypes. The pins are normally open (disconnected) and when the button is pressed they are momentarily closed and complete the circuit.',
+  ),
+  'Mid SW': Component(
+    title: 'Mid SW',
+    image: 'assets/images/SW1.png',
+    description:
+        'Push Button Switch is widely used as a standard input button on electronic projects. These work best when you mount it on PCB but can also be used on a solderless breadboard for temporary connections in prototypes. The pins are normally open (disconnected) and when the button is pressed they are momentarily closed and complete the circuit.',
+  ),
+  'Left SW': Component(
+    title: 'Left SW',
+    image: 'assets/images/SW1.png',
+    description:
+        'Push Button Switch is widely used as a standard input button on electronic projects. These work best when you mount it on PCB but can also be used on a solderless breadboard for temporary connections in prototypes. The pins are normally open (disconnected) and when the button is pressed they are momentarily closed and complete the circuit.',
+  ),
+  'Down SW': Component(
+    title: 'Down SW',
+    image: 'assets/images/SW1.png',
+    description:
+        'Push Button Switch is widely used as a standard input button on electronic projects. These work best when you mount it on PCB but can also be used on a solderless breadboard for temporary connections in prototypes. The pins are normally open (disconnected) and when the button is pressed they are momentarily closed and complete the circuit.',
+  ),
+  'Up SW': Component(
+    title: 'Up SW',
+    image: 'assets/images/SW1.png',
+    description:
+        'Push Button Switch is widely used as a standard input button on electronic projects. These work best when you mount it on PCB but can also be used on a solderless breadboard for temporary connections in prototypes. The pins are normally open (disconnected) and when the button is pressed they are momentarily closed and complete the circuit.',
+  ),
+};
+
 class PlayScreen extends StatelessWidget {
   final String image;
   final String title;
@@ -31,7 +107,7 @@ class PlayScreen extends StatelessWidget {
                     Text(
                       title,
                       style: const TextStyle(
-                        fontFamily: 'lucky', // Apply the lucky font family
+                        fontFamily: 'lucky',
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -42,7 +118,7 @@ class PlayScreen extends StatelessWidget {
                         Text(
                           'Duration: $duration',
                           style: TextStyle(
-                            fontFamily: 'lucky', // Apply the lucky font family
+                            fontFamily: 'lucky',
                             fontSize: 14,
                             color: Colors.grey[700],
                           ),
@@ -59,8 +135,7 @@ class PlayScreen extends StatelessWidget {
                           child: Text(
                             status,
                             style: const TextStyle(
-                              fontFamily:
-                                  'lucky', // Apply the lucky font family
+                              fontFamily: 'lucky',
                               color: Colors.white,
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -76,8 +151,7 @@ class PlayScreen extends StatelessWidget {
                   height: 50,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(
-                        color: const Color.fromARGB(255, 0, 0, 0), width: 2),
+                    border: Border.all(color: Colors.black, width: 2),
                   ),
                   child: ClipOval(
                     child: Image.asset(
@@ -106,114 +180,85 @@ class PlayScreen extends StatelessWidget {
                   ),
                 ),
 
-                // Red dot positioned at Arduino MCU board image
+                // Red dots for each component
                 Positioned(
                   top: 130,
                   left: 60,
                   child: GestureDetector(
-                    onTap: () {
-                      // Perform action when the dot is clicked
-                      _showDraggableSheet(context, 'Arduino MCU Board');
-                    },
+                    onTap: () =>
+                        _showDraggableSheet(context, 'Arduino MCU Board'),
                     child: _buildRedDot(),
                   ),
                 ),
-                // Red dot positioned at LCD display image
                 Positioned(
                   top: 200,
                   left: 20,
                   child: GestureDetector(
-                    onTap: () {
-                      _showDraggableSheet(context, 'LCD Display');
-                    },
+                    onTap: () => _showDraggableSheet(context, 'LCD Display'),
                     child: _buildRedDot(),
                   ),
                 ),
-                // Red dot positioned at LED1 image
                 Positioned(
                   top: 290,
                   left: 23,
                   child: GestureDetector(
-                    onTap: () {
-                      _showDraggableSheet(context, 'LED1');
-                    },
+                    onTap: () => _showDraggableSheet(context, 'LED1'),
                     child: _buildRedDot(),
                   ),
                 ),
-                // Red dot positioned at RGB2 image
                 Positioned(
                   top: 290,
                   left: 52,
                   child: GestureDetector(
-                    onTap: () {
-                      _showDraggableSheet(context, 'RGB2');
-                    },
+                    onTap: () => _showDraggableSheet(context, 'RGB2'),
                     child: _buildRedDot(),
                   ),
                 ),
-                // Red dot positioned at OLED image
                 Positioned(
                   top: 290,
                   left: 123,
                   child: GestureDetector(
-                    onTap: () {
-                      _showDraggableSheet(context, 'OLED');
-                    },
+                    onTap: () => _showDraggableSheet(context, 'OLED'),
                     child: _buildRedDot(),
                   ),
                 ),
-                // Red dot positioned to the right SW on the image
                 Positioned(
                   top: 247,
                   right: 72,
                   child: GestureDetector(
-                    onTap: () {
-                      _showDraggableSheet(context, 'Right SW');
-                    },
+                    onTap: () => _showDraggableSheet(context, 'Right SW'),
                     child: _buildRedDot(),
                   ),
                 ),
-                // Red dot positioned to the mid SW on the image
                 Positioned(
                   top: 247,
                   right: 103,
                   child: GestureDetector(
-                    onTap: () {
-                      _showDraggableSheet(context, 'Mid SW');
-                    },
+                    onTap: () => _showDraggableSheet(context, 'Mid SW'),
                     child: _buildRedDot(),
                   ),
                 ),
-                // Red dot positioned to the left SW on the image
                 Positioned(
                   top: 247,
                   right: 133,
                   child: GestureDetector(
-                    onTap: () {
-                      _showDraggableSheet(context, 'Left SW');
-                    },
+                    onTap: () => _showDraggableSheet(context, 'Left SW'),
                     child: _buildRedDot(),
                   ),
                 ),
-                // Red dot positioned to the down SW on the image
                 Positioned(
                   top: 277,
                   right: 103,
                   child: GestureDetector(
-                    onTap: () {
-                      _showDraggableSheet(context, 'Down SW');
-                    },
+                    onTap: () => _showDraggableSheet(context, 'Down SW'),
                     child: _buildRedDot(),
                   ),
                 ),
-                // Red dot positioned to the up SW on the image
                 Positioned(
                   top: 218,
                   right: 102,
                   child: GestureDetector(
-                    onTap: () {
-                      _showDraggableSheet(context, 'Up SW');
-                    },
+                    onTap: () => _showDraggableSheet(context, 'Up SW'),
                     child: _buildRedDot(),
                   ),
                 ),
@@ -225,6 +270,7 @@ class PlayScreen extends StatelessWidget {
     );
   }
 
+  // Red dot widget
   Widget _buildRedDot() {
     return Container(
       width: 10,
@@ -237,21 +283,22 @@ class PlayScreen extends StatelessWidget {
   }
 }
 
-//draggable bottom sheet
+// Draggable bottom sheet
 void _showDraggableSheet(BuildContext context, String selectedItem) {
+  final component = components[selectedItem]; // Get the component details
+
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
-    backgroundColor: Colors.transparent, // Ensure full transparency
+    backgroundColor: Colors.transparent,
     builder: (context) {
       return Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: Colors.white, // White background
-          borderRadius:
-              BorderRadius.vertical(top: Radius.circular(20)), // Rounded top
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
           border: Border.all(
-            color: const Color.fromARGB(255, 0, 0, 0), // Black border
+            color: Colors.black,
             width: 2,
           ),
         ),
@@ -264,71 +311,39 @@ void _showDraggableSheet(BuildContext context, String selectedItem) {
             maxChildSize: 0.75,
             builder: (context, scrollController) {
               return Container(
-                color: Colors.white, // Background
+                color: Colors.white,
                 padding: EdgeInsets.all(20),
                 child: SingleChildScrollView(
                   controller: scrollController,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Center(
-                        child: Container(
-                          width:
-                              MediaQuery.of(context).size.width, // Full width
-                          height: 150, // Slight height
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(20), // Rounded corners
-                            border: Border.all(
-                              color: const Color.fromARGB(
-                                  255, 0, 0, 0), // Red border
-                              width: 2, // Border thickness
-                            ),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(
-                                20), // Ensure border radius for the image
-                            child: Image.asset(
-                              'assets/images/A1-Version.png', // Change to your image path
-                              width: MediaQuery.of(context)
-                                  .size
-                                  .width, // Full width
-                              height: 150, // Slight height
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
+                      // PM6, Online now, and play icon
                       Padding(
                         padding: const EdgeInsets.only(
-                          top: 10, // Adjust the top padding for spacing
-                          bottom:
-                              10, // Add bottom padding to reduce space between texts
+                          top: 10,
+                          bottom: 10,
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment
-                              .spaceBetween, // Align text to left and icons to right
-                          crossAxisAlignment:
-                              CrossAxisAlignment.center, // Center vertically
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Row(
                               children: [
                                 Text(
-                                  'PM6', // Updated to PM6
+                                  'PM6',
                                   style: TextStyle(
                                     fontFamily: 'lucky',
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(
-                                    width:
-                                        8), // Space between PM6 and @PM6 · Online now
+                                SizedBox(width: 8),
                                 RichText(
                                   text: TextSpan(
                                     children: [
                                       TextSpan(
-                                        text: '@PM6 · ', // Grey text
+                                        text: '@PM6 · ',
                                         style: TextStyle(
                                           fontFamily: 'lucky',
                                           fontSize: 14,
@@ -336,11 +351,11 @@ void _showDraggableSheet(BuildContext context, String selectedItem) {
                                         ),
                                       ),
                                       TextSpan(
-                                        text: 'Online now', // Green text
+                                        text: 'Online now',
                                         style: TextStyle(
                                           fontFamily: 'lucky',
                                           fontSize: 14,
-                                          color: Colors.green, // Set to green
+                                          color: Colors.green,
                                         ),
                                       ),
                                     ],
@@ -348,24 +363,66 @@ void _showDraggableSheet(BuildContext context, String selectedItem) {
                                 ),
                               ],
                             ),
+                            // Play icon with circular border
+                            Container(
+                              padding: EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 2,
+                                ),
+                              ),
+                              child: Icon(
+                                Icons.play_arrow,
+                                size: 16,
+                                color: Colors.black,
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                      // Space between row and next section
-                      Divider(
-                        color: const Color.fromARGB(255, 0, 0, 0),
-                        thickness: 1,
-                      ),
-                      // Display the selected item
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Text(
-                          'Selected Item: $selectedItem',
-                          style: TextStyle(
-                            fontFamily: 'lucky',
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                      // Image of the selected component
+                      Center(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 2,
+                            ),
                           ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.asset(
+                              component!.image,
+                              width: MediaQuery.of(context).size.width,
+                              height: 150,
+                              //fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      // Title of the selected component
+                      Text(
+                        component.title,
+                        style: TextStyle(
+                          fontFamily: 'lucky',
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      // Description of the selected component
+                      Text(
+                        component.description,
+                        style: TextStyle(
+                          fontFamily: 'lucky',
+                          fontSize: 16,
+                          color: Colors.grey[700],
                         ),
                       ),
                     ],
