@@ -110,18 +110,25 @@ class PlayScreen extends StatelessWidget {
                 ),
                 // Red dot positioned at LCD display image
                 Positioned(
-                  top: 120,
-                  left: 200,
-                  child: _buildRedDot(),
-                ),
-                Positioned(
                   top: 200,
                   left: 20,
                   child: _buildRedDot(),
                 ),
+                // Red dot positioned at LED1 image
+                Positioned(
+                  top: 290,
+                  left: 23,
+                  child: _buildRedDot(),
+                ),
+                // Red dot positioned at RGB2 image
+                Positioned(
+                  top: 290,
+                  left: 52,
+                  child: _buildRedDot(),
+                ),
                 Positioned(
                   top: 300,
-                  right: 50,
+                  right: 53,
                   child: _buildRedDot(),
                 ),
               ],
