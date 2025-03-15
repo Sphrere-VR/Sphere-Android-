@@ -128,7 +128,13 @@ class PlayScreen extends StatelessWidget {
                 Positioned(
                   top: 290,
                   left: 52,
-                  child: _buildRedDot(),
+                  child: GestureDetector(
+                    onTap: () {
+                      // Perform action when the dot is clicked
+                      print("Red dot clicked!");
+                    },
+                    child: _buildRedDot(),
+                  ),
                 ),
                 // Red dot positioned at RGB2 image
                 Positioned(
