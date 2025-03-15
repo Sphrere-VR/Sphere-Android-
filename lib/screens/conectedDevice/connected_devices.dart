@@ -318,7 +318,7 @@ void _showDraggableSheet(BuildContext context, String selectedItem) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // PM6, Online now, and play icon
+// PM6, Online now, and play icon
                       Padding(
                         padding: const EdgeInsets.only(
                           top: 10,
@@ -363,25 +363,35 @@ void _showDraggableSheet(BuildContext context, String selectedItem) {
                                 ),
                               ],
                             ),
-                            // Play icon with circular border
-                            Container(
-                              padding: EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2,
+                            // Play icon with circular border and InkWell
+                            InkWell(
+                              onTap: () {
+                                // Handle click event
+                                print("Play button clicked");
+                                _showLCDPopup(context);
+                              },
+                              borderRadius: BorderRadius.circular(
+                                  20), // Circular ripple effect
+                              child: Container(
+                                padding: EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 2,
+                                  ),
                                 ),
-                              ),
-                              child: Icon(
-                                Icons.play_arrow,
-                                size: 16,
-                                color: Colors.black,
+                                child: Icon(
+                                  Icons.play_arrow,
+                                  size: 16,
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
+
                       // Image of the selected component
                       Center(
                         child: Container(
@@ -435,4 +445,86 @@ void _showDraggableSheet(BuildContext context, String selectedItem) {
       );
     },
   );
+}
+
+void _showLCDPopup(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierColor: Colors.transparent, // Remove background dimming
+    builder: (context) {
+      return Dialog(
+        backgroundColor: Colors.transparent, // Remove default background color
+        child: Center(
+          // Center the popup content
+          child: LCD16x2Display(
+            line1: 'Hello, Flutter!',
+            line2: 'This is LCD Demo!',
+          ),
+        ),
+      );
+    },
+  );
+}
+
+class LCD16x2Display extends StatelessWidget {
+  final String line1; // Text for the first line
+  final String line2; // Text for the second line
+
+  const LCD16x2Display({
+    Key? key,
+    required this.line1,
+    required this.line2,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: (16 * 18.0) + (16 * 2), // Adjusted width to account for margins
+      padding: EdgeInsets.all(6),
+      decoration: BoxDecoration(
+        color: Colors.blue[900], // LCD background color
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.black, width: 2),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment:
+            MainAxisAlignment.center, // Vertically center the content
+        crossAxisAlignment:
+            CrossAxisAlignment.center, // Horizontally center the content
+        children: [
+          _buildLCDLine(context, line1.padRight(16).substring(0, 16)),
+          SizedBox(height: 5),
+          _buildLCDLine(context, line2.padRight(16).substring(0, 16)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLCDLine(BuildContext context, String text) {
+    return Row(
+      mainAxisAlignment:
+          MainAxisAlignment.center, // Horizontally center the text
+      children: List.generate(16, (index) {
+        return Container(
+          width: 14, // Width of each character block
+          height: 20, // Height of each character block
+          margin: EdgeInsets.symmetric(horizontal: 1), // Space between blocks
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.3), // Block background
+            borderRadius: BorderRadius.circular(4),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            text[index],
+            style: TextStyle(
+              color: Colors.white, // Text color
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+      }),
+    );
+  }
 }
