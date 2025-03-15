@@ -31,6 +31,7 @@ class PlayScreen extends StatelessWidget {
                     Text(
                       title,
                       style: const TextStyle(
+                        fontFamily: 'lucky', // Apply the lucky font family
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -41,6 +42,7 @@ class PlayScreen extends StatelessWidget {
                         Text(
                           'Duration: $duration',
                           style: TextStyle(
+                            fontFamily: 'lucky', // Apply the lucky font family
                             fontSize: 14,
                             color: Colors.grey[700],
                           ),
@@ -57,6 +59,8 @@ class PlayScreen extends StatelessWidget {
                           child: Text(
                             status,
                             style: const TextStyle(
+                              fontFamily:
+                                  'lucky', // Apply the lucky font family
                               color: Colors.white,
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -138,9 +142,16 @@ class PlayScreen extends StatelessWidget {
                   left: 123,
                   child: _buildRedDot(),
                 ),
+                // Red dot positioned to the right SW on the image
                 Positioned(
-                  top: 300,
-                  right: 53,
+                  top: 247,
+                  right: 72,
+                  child: _buildRedDot(),
+                ),
+// Red dot positioned to the right SW on the image
+                Positioned(
+                  top: 247,
+                  right: 72,
                   child: _buildRedDot(),
                 ),
               ],
