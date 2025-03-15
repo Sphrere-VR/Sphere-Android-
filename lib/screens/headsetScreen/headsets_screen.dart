@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sphere_app/screens/connected_devices.dart';
+import 'package:sphere_app/screens/conectedDevice/connected_devices.dart';
 
 void main() {
   runApp(MyApp());

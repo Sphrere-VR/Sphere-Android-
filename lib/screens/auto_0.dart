@@ -1,195 +1,315 @@
-/*
-Author: Edward Phiri
-Project: Sphere 
-Date: N/A
-
-*/
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:sphere_app/screens/infor_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class PlayScreen extends StatelessWidget {
+  final String image;
+  final String title;
+  final String duration;
+  final String status;
+
+  const PlayScreen({
+    Key? key,
+    required this.image,
+    required this.title,
+    required this.duration,
+    required this.status,
+  }) : super(key: key);
+
   @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontFamily: 'lucky',
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Row(
+                      children: [
+                        Text(
+                          'Duration: $duration',
+                          style: TextStyle(
+                            fontFamily: 'lucky',
+                            fontSize: 14,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color:
+                                status == 'Online' ? Colors.green : Colors.red,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            status,
+                            style: const TextStyle(
+                              fontFamily: 'lucky',
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 0, 0, 0), width: 2),
+                  ),
+                  child: ClipOval(
+                    child: Image.asset(
+                      image,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
 
-class _HomeScreenState extends State<HomeScreen> {
-  bool _isPressed = false;
+            // Image with red dots overlay
+            Stack(
+              children: [
+                Container(
+                  height: 400,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/TME_Edu_Rav2.png'),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
 
-  Widget _buildCategoryIcon(IconData icon, Color color) {
-    return GestureDetector(
-      onTap: () => _navigateToGameScreen(context),
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 5),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: color.withOpacity(0.2),
-          border: Border.all(
-            color: color,
-            width: 2,
-          ),
-        ),
-        child: Icon(
-          icon,
-          size: 30,
-          color: color,
+                // Red dot positioned at Arduino MCU board image
+                Positioned(
+                  top: 130,
+                  left: 60,
+                  child: _buildRedDot(),
+                ),
+                // Red dot positioned at LCD display image
+                Positioned(
+                  top: 200,
+                  left: 20,
+                  child: _buildRedDot(),
+                ),
+                // Red dot positioned at LED1 image
+                Positioned(
+                  top: 290,
+                  left: 23,
+                  child: GestureDetector(
+                    onTap: () {
+                      _showDraggableSheet(context);
+                    },
+                    child: _buildRedDot(),
+                  ),
+                ),
+                // Red dot positioned at RGB2 image
+                Positioned(
+                  top: 290,
+                  left: 52,
+                  child: _buildRedDot(),
+                ),
+                // Red dot positioned at RGB2 image
+                Positioned(
+                  top: 290,
+                  left: 52,
+                  child: _buildRedDot(),
+                ),
+                // Red dot positioned at OLED image
+                Positioned(
+                  top: 290,
+                  left: 123,
+                  child: _buildRedDot(),
+                ),
+                // Red dot positioned to the right SW on the image
+                Positioned(
+                  top: 247,
+                  right: 72,
+                  child: _buildRedDot(),
+                ),
+                // Red dot positioned to the mid SW on the image
+                Positioned(
+                  top: 247,
+                  right: 103,
+                  child: _buildRedDot(),
+                ),
+                // Red dot positioned to the left SW on the image
+                Positioned(
+                  top: 247,
+                  right: 133,
+                  child: _buildRedDot(),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
 
-  void _setPressed(bool isPressed) {
-    setState(() {
-      _isPressed = isPressed;
-    });
-  }
-
-  void _navigateToGameScreen(BuildContext context) {
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => InforScreen(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          const begin = Offset(1.0, 0.0);
-          const end = Offset.zero;
-          const curve = Curves.easeInOut;
-
-          var tween =
-              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-          var offsetAnimation = animation.drive(tween);
-
-          return SlideTransition(position: offsetAnimation, child: child);
-        },
+  Widget _buildRedDot() {
+    return Container(
+      width: 12,
+      height: 12,
+      decoration: BoxDecoration(
+        color: Colors.red,
+        shape: BoxShape.circle,
       ),
-    ).then((_) {
-      // Pop action when returning
-      _setPressed(false);
-    });
+    );
   }
 
   void _showDraggableSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
-      ),
+      backgroundColor: Colors.transparent, // Ensure full transparency
       builder: (context) {
-        return DraggableScrollableSheet(
-          initialChildSize: 0.4, // Starts at 40% of screen height
-          minChildSize: 0.2, // Minimum it can shrink
-          maxChildSize: 0.9, // Maximum it can expand
-          expand: false,
-          builder: (context, scrollController) {
-            return Container(
-              padding: EdgeInsets.all(16),
-              child: ListView(
-                controller: scrollController,
-                children: [
-                  Center(
-                    child: Container(
-                      width: 40,
-                      height: 5,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[400],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    "Draggable Scrollable Sheet",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.home),
-                    title: Text("Home"),
-                    onTap: () => Navigator.pop(context),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.settings),
-                    title: Text("Settings"),
-                    onTap: () => Navigator.pop(context),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.info),
-                    title: Text("About"),
-                    onTap: () => Navigator.pop(context),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.logout),
-                    title: Text("Logout"),
-                    onTap: () => Navigator.pop(context),
-                  ),
-                  SizedBox(height: 20),
-                ],
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color.fromARGB(255, 246, 185, 59),
-                  Color.fromRGBO(105, 240, 174, 1).withOpacity(0.5),
-                ],
-              ),
+        return Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            color: Colors.white, // White background
+            borderRadius:
+                BorderRadius.vertical(top: Radius.circular(20)), // Rounded top
+            border: Border.all(
+              color: const Color.fromARGB(255, 0, 0, 0), // Black border
+              width: 2,
             ),
           ),
-          Positioned(
-            top: 50,
-            left: 20,
-            right: 20,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Future.delayed(Duration(milliseconds: 50), () {
-                          _showDraggableSheet(context);
-                        });
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                          border: Border.all(
-                            color: const Color.fromARGB(255, 0, 0, 0),
-                            width: 2,
+          child: ClipRRect(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            child: DraggableScrollableSheet(
+              expand: false,
+              initialChildSize: 0.5,
+              minChildSize: 0.25,
+              maxChildSize: 0.75,
+              builder: (context, scrollController) {
+                return Container(
+                  color: Colors.white, // Background
+                  padding: EdgeInsets.all(20),
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Container(
+                            width:
+                                MediaQuery.of(context).size.width, // Full width
+                            height: 150, // Slight height
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(20), // Rounded corners
+                              border: Border.all(
+                                color: const Color.fromARGB(
+                                    255, 0, 0, 0), // Red border
+                                width: 2, // Border thickness
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                  20), // Ensure border radius for the image
+                              child: Image.asset(
+                                'assets/images/A1-Version.png', // Change to your image path
+                                width: MediaQuery.of(context)
+                                    .size
+                                    .width, // Full width
+                                height: 150, // Slight height
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ),
-                        child: Icon(
-                          Icons.menu,
-                          size: 24,
-                          color: Color.fromARGB(255, 0, 0, 0),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 10, // Adjust the top padding for spacing
+                            bottom:
+                                10, // Add bottom padding to reduce space between texts
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment
+                                .spaceBetween, // Align text to left and icons to right
+                            crossAxisAlignment:
+                                CrossAxisAlignment.center, // Center vertically
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    'PM6', // Updated to PM6
+                                    style: TextStyle(
+                                      fontFamily: 'lucky',
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      width:
+                                          8), // Space between PM6 and @PM6 · Online now
+                                  RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: '@PM6 · ', // Grey text
+                                          style: TextStyle(
+                                            fontFamily: 'lucky',
+                                            fontSize: 14,
+                                            color: Colors.grey[600],
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: 'Online now', // Green text
+                                          style: TextStyle(
+                                            fontFamily: 'lucky',
+                                            fontSize: 14,
+                                            color: Colors.green, // Set to green
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
+                        // Space between row and next section
+                        Divider(
+                          color: const Color.fromARGB(255, 0, 0, 0),
+                          thickness: 1,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                );
+              },
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

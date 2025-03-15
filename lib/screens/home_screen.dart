@@ -7,7 +7,7 @@ Date: N/A
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sphere_app/screens/headsets_screen.dart';
+import 'package:sphere_app/screens/headsetScreen/headsets_screen.dart';
 import 'package:sphere_app/screens/infor_screen.dart';
 
 class HomeScreen extends StatefulWidget {
