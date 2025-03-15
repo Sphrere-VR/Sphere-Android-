@@ -102,20 +102,21 @@ class PlayScreen extends StatelessWidget {
                   ),
                 ),
 
-                // Red dots positioned at specific locations
+                // Red dot positioned at Arduino MCU board image
                 Positioned(
                   top: 130,
                   left: 60,
                   child: _buildRedDot(),
                 ),
+                // Red dot positioned at LCD display image
                 Positioned(
                   top: 120,
                   left: 200,
                   child: _buildRedDot(),
                 ),
                 Positioned(
-                  top: 250,
-                  left: 150,
+                  top: 200,
+                  left: 20,
                   child: _buildRedDot(),
                 ),
                 Positioned(
