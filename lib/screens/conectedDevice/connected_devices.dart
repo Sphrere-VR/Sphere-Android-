@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 // Data model for components
 class Component {
@@ -452,7 +454,6 @@ void _showDraggableSheet(BuildContext context, String selectedItem) {
   );
 }
 
-// LCD Popup Widget
 void _showLCDPopup(BuildContext context) {
   showModalBottomSheet(
     context: context,
@@ -496,7 +497,6 @@ class _LCDDisplayWidgetState extends State<LCDDisplayWidget> {
   }
 
   void _updateLCDDisplay(String text) {
-    // Split the text into two lines of 16 characters each
     setState(() {
       _lines[0] = text.length > 16 ? text.substring(0, 16) : text;
       _lines[1] = text.length > 16 ? text.substring(16) : "";
@@ -508,44 +508,75 @@ class _LCDDisplayWidgetState extends State<LCDDisplayWidget> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Simulated LCD Display
+        // Simulated LCD Display with fade effect and border
         Container(
-          width: MediaQuery.of(context).size.width *
-              0.8, // Set width to 90% of screen width
+          width: MediaQuery.of(context).size.width * 0.8,
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: Colors.green[900],
             borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: const Color.fromARGB(255, 0, 0, 0),
+              width: 2,
+            ),
           ),
           child: Column(
             children: [
-              Text(
-                _lines[0].padRight(16, ' '), // Ensure 16 characters
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24, // Increased font size
-                  fontFamily: 'monospace',
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(16, (index) {
+                  return Text(
+                    index < _lines[0].length ? _lines[0][index] : ' ',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontFamily: 'monospace',
+                    ),
+                  ).animate().fade(duration: 300.ms);
+                }),
               ),
-              Text(
-                _lines[1].padRight(16, ' '), // Ensure 16 characters
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24, // Increased font size
-                  fontFamily: 'monospace',
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(16, (index) {
+                  return Text(
+                    index < _lines[1].length ? _lines[1][index] : ' ',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontFamily: 'monospace',
+                    ),
+                  ).animate().fade(duration: 300.ms);
+                }),
               ),
             ],
           ),
         ),
         SizedBox(height: 16),
         // Text input field
+        // Text input field
         TextField(
           controller: _controller,
-          maxLength: 32, // Maximum of 32 characters (16x2)
+          maxLength: 32,
           decoration: InputDecoration(
             hintText: "Type text for the LCD...",
-            border: OutlineInputBorder(),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: Colors.black,
+                width: 2,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: Colors.black,
+                width: 2,
+              ),
+            ),
+          ),
+          style: TextStyle(
+            fontFamily: 'lucky',
+            fontSize: 16,
           ),
           onChanged: _updateLCDDisplay,
         ),
