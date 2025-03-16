@@ -318,7 +318,7 @@ void _showDraggableSheet(BuildContext context, String selectedItem) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-// PM6, Online now, and play icon
+                      // PM6, Online now, and play icon
                       Padding(
                         padding: const EdgeInsets.only(
                           top: 10,
@@ -366,9 +366,14 @@ void _showDraggableSheet(BuildContext context, String selectedItem) {
                             // Play icon with circular border and InkWell
                             InkWell(
                               onTap: () {
-                                // Handle click event
-                                print("Play button clicked");
-                                _showLCDPopup(context);
+                                if (selectedItem == 'LCD Display') {
+                                  _showLCDPopup(
+                                      context); // Show the LCD popup directly
+                                } else {
+                                  // Handle other play button actions
+                                  print(
+                                      "Play button clicked for $selectedItem");
+                                }
                               },
                               borderRadius: BorderRadius.circular(
                                   20), // Circular ripple effect
@@ -447,84 +452,104 @@ void _showDraggableSheet(BuildContext context, String selectedItem) {
   );
 }
 
+// LCD Popup Widget
 void _showLCDPopup(BuildContext context) {
-  showDialog(
+  showModalBottomSheet(
     context: context,
-    barrierColor: Colors.transparent, // Remove background dimming
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
     builder: (context) {
-      return Dialog(
-        backgroundColor: Colors.transparent, // Remove default background color
-        child: Center(
-          // Center the popup content
-          child: LCD16x2Display(
-            line1: 'Hello, Flutter!',
-            line2: 'This is LCD Demo!',
+      return Container(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          border: Border.all(
+            color: Colors.black,
+            width: 2,
           ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: LCDDisplayWidget(),
         ),
       );
     },
   );
 }
 
-class LCD16x2Display extends StatelessWidget {
-  final String line1; // Text for the first line
-  final String line2; // Text for the second line
+class LCDDisplayWidget extends StatefulWidget {
+  @override
+  _LCDDisplayWidgetState createState() => _LCDDisplayWidgetState();
+}
 
-  const LCD16x2Display({
-    Key? key,
-    required this.line1,
-    required this.line2,
-  }) : super(key: key);
+class _LCDDisplayWidgetState extends State<LCDDisplayWidget> {
+  final TextEditingController _controller = TextEditingController();
+  List<String> _lines = ["", ""]; // Two lines for the 16x2 LCD
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _updateLCDDisplay(String text) {
+    // Split the text into two lines of 16 characters each
+    setState(() {
+      _lines[0] = text.length > 16 ? text.substring(0, 16) : text;
+      _lines[1] = text.length > 16 ? text.substring(16) : "";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: (16 * 18.0) + (16 * 2), // Adjusted width to account for margins
-      padding: EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        color: Colors.blue[900], // LCD background color
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.black, width: 2),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment:
-            MainAxisAlignment.center, // Vertically center the content
-        crossAxisAlignment:
-            CrossAxisAlignment.center, // Horizontally center the content
-        children: [
-          _buildLCDLine(context, line1.padRight(16).substring(0, 16)),
-          SizedBox(height: 5),
-          _buildLCDLine(context, line2.padRight(16).substring(0, 16)),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLCDLine(BuildContext context, String text) {
-    return Row(
-      mainAxisAlignment:
-          MainAxisAlignment.center, // Horizontally center the text
-      children: List.generate(16, (index) {
-        return Container(
-          width: 14, // Width of each character block
-          height: 20, // Height of each character block
-          margin: EdgeInsets.symmetric(horizontal: 1), // Space between blocks
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Simulated LCD Display
+        Container(
+          width: MediaQuery.of(context).size.width *
+              0.8, // Set width to 90% of screen width
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.3), // Block background
-            borderRadius: BorderRadius.circular(4),
+            color: Colors.green[900],
+            borderRadius: BorderRadius.circular(8),
           ),
-          alignment: Alignment.center,
-          child: Text(
-            text[index],
-            style: TextStyle(
-              color: Colors.white, // Text color
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
+          child: Column(
+            children: [
+              Text(
+                _lines[0].padRight(16, ' '), // Ensure 16 characters
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24, // Increased font size
+                  fontFamily: 'monospace',
+                ),
+              ),
+              Text(
+                _lines[1].padRight(16, ' '), // Ensure 16 characters
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24, // Increased font size
+                  fontFamily: 'monospace',
+                ),
+              ),
+            ],
           ),
-        );
-      }),
+        ),
+        SizedBox(height: 16),
+        // Text input field
+        TextField(
+          controller: _controller,
+          maxLength: 32, // Maximum of 32 characters (16x2)
+          decoration: InputDecoration(
+            hintText: "Type text for the LCD...",
+            border: OutlineInputBorder(),
+          ),
+          onChanged: _updateLCDDisplay,
+        ),
+      ],
     );
   }
 }
