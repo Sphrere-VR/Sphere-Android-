@@ -580,6 +580,20 @@ class _LCDDisplayWidgetState extends State<LCDDisplayWidget> {
           ),
           onChanged: _updateLCDDisplay,
         ),
+        // Send Button as Icon
+        Align(
+          alignment: Alignment.centerLeft,
+          child: IconButton(
+            onPressed: () {
+              print("Text Sent: \${_controller.text}");
+            },
+            icon: Icon(
+              Icons.send,
+              color: Colors.black,
+            ),
+            iconSize: 32,
+          ),
+        ),
       ],
     );
   }
