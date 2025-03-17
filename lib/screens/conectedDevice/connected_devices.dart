@@ -1,6 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart'; // For Firebase Realtime Database
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: PlayScreen(
+        image: 'assets/images/sample_image.png',
+        title: 'Sample Title',
+        duration: '10:00',
+        status: 'Online',
+      ),
+    );
+  }
+}
 
 // Data model for components
 class Component {
@@ -503,6 +524,31 @@ class _LCDDisplayWidgetState extends State<LCDDisplayWidget> {
     });
   }
 
+  void uploadData() {
+    // Get the text from the TextField
+    String text = _controller.text;
+
+    // Reference to your Firebase Realtime Database
+    final DatabaseReference _database = FirebaseDatabase.instance.ref();
+
+    // Push data to the "uploads" node
+    _database.child("uploads").push().set({
+      "text": text, // Include the text from the TextField
+      "status": "uploaded",
+      "timestamp": DateTime.now().toIso8601String(),
+    }).then((_) {
+      print("Data uploaded successfully!");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Data uploaded successfully!")),
+      );
+    }).catchError((error) {
+      print("Failed to upload data: $error");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Failed to upload data: $error")),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -553,7 +599,6 @@ class _LCDDisplayWidgetState extends State<LCDDisplayWidget> {
         ),
         SizedBox(height: 16),
         // Text input field
-        // Text input field
         TextField(
           controller: _controller,
           maxLength: 32,
@@ -583,15 +628,51 @@ class _LCDDisplayWidgetState extends State<LCDDisplayWidget> {
         // Send Button as Icon
         Align(
           alignment: Alignment.centerLeft,
-          child: IconButton(
-            onPressed: () {
-              print("Text Sent: \${_controller.text}");
-            },
-            icon: Icon(
-              Icons.send,
-              color: Colors.black,
-            ),
-            iconSize: 32,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Upload Icon with Circular Border
+              Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 2,
+                  ),
+                ),
+                child: IconButton(
+                  onPressed: uploadData, // Call upload function
+                  icon: Icon(
+                    Icons.upload,
+                    color: Colors.black,
+                    size: 28,
+                  ),
+                ),
+              ),
+              SizedBox(width: 12),
+
+              // Check Icon with Circular Border
+              Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 2,
+                  ),
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.green,
+                    size: 28,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],
