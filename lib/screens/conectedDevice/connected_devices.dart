@@ -1,3 +1,7 @@
+/*
+This is for the developer instructions
+*/
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:firebase_core/firebase_core.dart';
